@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>{% block Title %} Inicio {% endblock Title %}</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- {% static 'vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all">
+    <style>
+        .main-content {
+
+            /* Ubicación de la imagen */
+
+            background-image: url("{% static 'images/shutterstock/shutterstock_565702024_web.jpg' %}");
+
+            /* Para dejar la imagen de fondo centrada, vertical y
+
+            horizontalmente */
+
+            background-position: center center;
+
+            /* Para que la imagen de fondo no se repita */
+
+            background-repeat: no-repeat;
+
+            /* La imagen se fija en la ventana de visualización para que la altura de la imagen no supere a la del contenido */
+
+            background-attachment: fixed;
+
+            /* La imagen de fondo se reescala automáticamente con el cambio del ancho de ventana del navegador */
+
+            background-size: cover;
+
+            /* Se muestra un color de fondo mientras se está cargando la imagen
+
+            de fondo o si hay problemas para cargarla */
+
+            background-color: #66999;
+
+}   
+    a,p,h1,h2,h3,h4,h5,h6,strong,label,tr,td,th,aside,header,body,button{
+        font-size:1.9hz;
+        font-size:1.9vh;
+    }
+    input {
+        font-size:2.0hz;
+        font-size:2.0vh;
+    }
+    .btn {
+        font-size:1.9hz;
+        font-size:1.9vh;
+    }
+    </style>
+    {% block Style %}
+    {% endblock Style %}
+</head>
+<body class="animsition" >
+    
+    <div class="page-wrapper" >
+        <header class="header-mobile d-block d-lg-none">
+            {% include 'Partials/Gestor/_Header_Mobile.html' %}
+        </header>
+        <aside style="width: 250px;" class="menu-sidebar d-block d-lg-block" >
+                {% include "Partials/Gestor/_SidebarLeft.html" %}
+        </aside>
+
+        <div class="page-container">
+            <header class="header-desktop" >
+                {% include "Partials/Gestor/_Header.html" %}
+            </header>
+            <div class="main-content">
+                {% block Content %}
+
+                {% endblock Content %}
+            </div>
+        </div>
+        
+ 
+    </div>
+<!-- Jquery JS-->
+    <script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-ui.min.js' %}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+    <!--vendor JS       -->
+    <script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+    <script src="{% static 'vendor/slick/slick.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js' %}">
+    </script>
+        
+    <!-- Main JS-->
+<script src="{% static 'js/main.js' %}"></script>
+    <script>
+        $(".notifi__item").on('click', function(event) {
+            window.location = $(this).attr('href');
+            event.preventDefault();
+        });
+        $(".email__item").on('click', function(event) {
+            window.location = $(this).attr('href');
+            event.preventDefault();
+        });
+    </script>
+	{% block JavaScript %}
+	{% endblock JavaScript %}
+</body>
+</html>

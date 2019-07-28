@@ -1,0 +1,217 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	.punt {
+    cursor: pointer;
+}
+
+</style>
+<link rel="stylesheet" href="{% static 'vendor/picklist.css' %}">
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+		<div class="row justify-content-md-center">
+			<div class="col-md-8">
+				<div class="card" style="background: rgba(255, 255, 255, 0.5);color:black; color:black;">
+					<div class="card-body">
+						<div>
+							<h2 style="text-align: center;">Mensajes</h2>
+						</div>
+						<div>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#Mensaje">Enviar Mensaje</button>
+						</div>
+						<br>
+						<div class="table-responsive table--no-card m-b-30">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Asunto</th>
+										<th>Respuestas</th>
+										<th>Fecha</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in contacts %}
+									<tr>
+
+										<td><p>{{i.0.Asunto}}</p></td>
+										<td>{{i.1}}</td>
+										<td width="200px">
+											<p>{{i.0.Fecha}}</p>
+										</td>
+										<td>
+											<a href="{% url 'Foro' i.0.pk %}"><button class="btn btn-primary">Ver</button></a>
+											<a href="{% url 'Elim_Pregunta' i.0.pk %}"><button class="btn btn-danger">Eliminar</button></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+					      <ul class="pagination">
+					        {% if contacts.has_previous %}
+					        <li class="page-item">
+					          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+					        </li>
+					        {% else %}
+					        <li class="page-item disabled">
+					          <a class="page-link">Anterior</a>
+					        </li>
+					        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+					        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+					        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+					        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+					        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+					          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+					          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+					          {% endif %} {% if contacts.has_next %}
+					          <li class="page-item">
+					            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+					          </li>
+					          {% else %}
+					          <li class="page-item disabled">
+					            <a class="page-link">Siguiente</a>
+					          </li>
+					          {% endif %}
+					      </ul>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="Mensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Enviar Mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      		
+      		<input type="text" id="id_action" name="action" value="EditContact" class="hidden" hidden>
+			{% csrf_token %}
+
+            <div class="row form-group">
+            	
+				
+			<div id="list" class="picklist">
+			</div>
+
+            	<div class="col-md-12">
+					<label for=""><strong>Asunto</strong></label>
+					<input class="form-control" name="asunto" id="asunto"></input>
+            	</div>
+            	<div class="col-md-12">
+					<label for=""><strong>Mensaje</strong></label>
+					<textarea class="form-control" rows="5" name="mensaje" id="mensaje"></textarea>
+            	</div>
+            </div>
+            
+         	
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="button" id="Enviar" class="btn btn-primary">Enviar</button>
+		      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+<script type="text/javascript">
+	$(document).ready(function(){
+	function getCookie(name){
+      var cookieValue = null;
+      if (document.cookie && document.cookie != ''){
+          var cookies = document.cookie.split(';');
+          for(var i = 0; i < cookies.length; i++){
+              var cookie = jQuery.trim(cookies[i]);
+
+              if(cookie.substring(0,name.length + 1) == (name + '=')){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue
+    }
+			const data = {
+                available: [
+                {% for i in empresas %}
+                    {id:('{{i.pk}}'),label: '{{i.username}}'},
+                {% endfor %}
+                ],
+                selected:[
+                ]
+            };
+        $(function () {
+        	var cont = 0;
+            
+            var a = $('#list').pickList({
+                data: data,
+                // buttons:[
+                //     {
+                //         action: 'remove',
+                //         label: 'Remove',
+                //         className: 'btn btn-sm btn-block btn-info'
+                //     }
+                // ]
+            });
+
+            $('#button').on('click', function () {
+                console.log(a.pickList('getSelected'));
+            });
+
+            a.on('picklist.remove', function (event, v) {
+                console.log(v)
+            });
+
+            a.on('picklist.add', function (event, v) {
+                console.log(v)
+                console.log(data.selected);
+            });
+        });
+    $("#Enviar").on('click', function(event) {
+    	event.preventDefault();
+    	var selec = [];
+    	for (var i = 0; i < data.selected.length; i++) {
+    		selec.push(data.selected[i].id);
+    	}$.ajax({
+          url:'{% url "Mensajeria" %}',
+          type: "POST",
+          data: {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+            'select':String(selec),
+            'mensaje':String($("#mensaje").val()),
+            'asunto':String($("#asunto").val()),
+          },
+          success: function(){
+          	window.location.replace("{% url 'Mensajeria' %}")
+          }                                            
+        });
+
+    });
+    });
+    </script>
+    <script type="text/javascript">
+
+
+ 
+
+</script>
+<script src="{% static 'vendor/picklist.js' %}"></script>
+
+{% endblock JavaScript %}

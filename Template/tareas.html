@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Agency</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,500,600" rel="stylesheet">
+		<!--
+		CSS
+		============================================= -->
+		<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+		<!-- Fontfaces CSS-->
+	    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+	    <!-- Bootstrap CSS-->
+	    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+	    <!-- {% static 'vendor CSS-->
+	    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+	    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+		<style type="text/css">
+		body {
+			background-image: url("{% static 'images/calido.jfif' %}");
+			background-position: center center;
+	        background-repeat: repeat;
+	        background-size: auto ;
+	        background-attachment: fixed;
+	        /* La imagen de fondo se reescala automáticamente con el cambio del ancho de ventana del navegador */
+	       
+			color: black;
+		}
+		.space{
+			text-align: center;
+			align-items: center;
+			margin-top: 230px;
+		}
+		
+		img {
+			height:180px;
+			width:180px;
+		}
+	</style>
+	</head>
+	<body>
+		
+		<div class="section__content section__content--p30">
+			<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-2">
+					<a href="{% url 'Horario_Semana' %}"><button style="width:120px;height:120px;"><img style="width:100px;height:100px;" src="{% static 'Pictogramas/anterior.png' %}"></button></a>
+					<div style="text-align: center">
+						<label for="" style="color:white;">Volver</label>
+					</div>
+				</div>
+				<div class="col-md-12">
+
+					<div class="card">
+						
+						<div class="card-header" style="text-align: center;">
+							<div>
+								<h2>Tareas</h2>
+								
+							</div>
+							
+						</div>
+						<div class="card-body">
+							<div class="col-md-3" style="text-align: center;align-items: center">
+								<button data-toggle="modal" data-target="#Agregar_Tarea"><img src="{% static 'Pictogramas/agregar.png' %}" style="height: 100px;width:100px"><img src="{% static 'Pictogramas/tarea.png' %}" style="height: 100px;width:100px"></button>
+								<h5>Agregar Tarea</h5>
+
+							</div>
+							<div class="table-responsive table--no-card m-b-30">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>N°</th>
+											<th>Tarea</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in contacts %}
+										<tr>
+											<td>{{1}}</td>
+											<td>
+												<span id="td{{i.pk}}"></span>
+												<input type="text" value="{{i.Mensaje}}" blocked>
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+							<div class="row">
+						      <ul class="pagination">
+						        {% if contacts.has_previous %}
+						        <li class="page-item">
+						          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+						        </li>
+						        {% else %}
+						        <li class="page-item disabled">
+						          <a class="page-link">Anterior</a>
+						        </li>
+						        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+						        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+						        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+						        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+						        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+						          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+						          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+						          {% endif %} {% if contacts.has_next %}
+						          <li class="page-item">
+						            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+						          </li>
+						          {% else %}
+						          <li class="page-item disabled">
+						            <a class="page-link">Siguiente</a>
+						          </li>
+						          {% endif %}
+						      </ul>
+								    </div>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+<div class="modal fade bd-example-modal-lg" id="Agregar_Tarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Agregar Tarea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<form action="{% url 'Nueva_Tarea' %}" class="form-horizontal" method="POST" >
+      		<input type="text" id="id_action" name="action" value="EditContact" class="hidden" hidden>
+			{% csrf_token %}
+
+            
+            <div class=" row form-group">
+            	<div class="col-md-12">
+					<label for=""><strong>Tarea</strong></label>
+					<input type="text" name="Mensaje" class="form-control">
+            	</div>
+        	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+		<!-- Jquery JS-->
+    <script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+    <!--vendor JS       -->
+    <script src="{% static 'vendor/slick/slick.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/chartjs/Chart.min.js' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js' %}">
+    </script>
+
+    <!-- Main JS-->
+<script>
+	$(document).ready(function(){
+	function getCookie(name){
+      var cookieValue = null;
+      if (document.cookie && document.cookie != ''){
+          var cookies = document.cookie.split(';');
+          for(var i = 0; i < cookies.length; i++){
+              var cookie = jQuery.trim(cookies[i]);
+
+              if(cookie.substring(0,name.length + 1) == (name + '=')){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue
+    }
+		$("#Agregar").on('click', function(event) {
+			$.ajax({
+	          url:'{% url "Nueva_Tarea"%}',
+	          type: "POST",
+	          data: {
+	            csrfmiddlewaretoken: getCookie('csrftoken'),
+	            'Mensaje':$("#mensaje").val(),
+	            'dia':{{dia}},
+	          },
+	          success: function(dato) {
+			    event.preventDefault();
+			    alert(dato.message);
+			    window.location.replace("{% url 'Tareas' dia %}");
+			}                                          
+	        });
+		});
+	var palabras = {}
+	{% for i in contacts %}
+		var palabra = "{{i.Mensaje}}".split(" ");
+		for(var i = 0;i<palabra.length;i++){
+
+			var imagen = "<img onerror=elim_image(this) src='/static/Pictogramas/"+palabra[i]+".png'>";
+			$("#td{{i.pk}}").append(imagen);
+		}
+	{% endfor %}
+	
+});
+	function elim_image(t){
+		
+		$(t).hide();
+	};
+</script>
+	</body>
+
+</html>

@@ -1,0 +1,182 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	input {
+		text-align: center;
+		font-weight: bold;
+	}
+	
+</style>
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+		<div class="row">
+			<a href="{% url 'Ver_Info_Empresa' %}">
+				<button id="atras" style="background-color: transparent;border: double;border-color: green;" class="btn btn-success"><-Atras</button>	
+			</a>
+		</div>
+		<div class="row">
+			<div class="col-xl-6">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-md-6" style="text-align: left;">
+								<a href="{% url 'Info_Personal' empresa.pk %}"><button class="btn btn-primary" style="text-align: left;">Ver Información de la Empresa</button></a>
+							</div>
+							<div class="col-md-6" style="text-align: right;">
+								<a href="{% url 'Info_Flota' empresa.pk %}"><button class="btn btn-primary" style="text-align: right;">Ver Flotas</button></a>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						
+						<div class="table-responsive table--no-card m-b-30">
+							<table class = "table table-bordered" style="text-align: center">
+								<tbody>
+									<tr>
+										<td><strong>Kilometros Totales</strong></td>
+										<td><input type="text" disabled="True" id="kilo" value="{{total_camiones_kilometros}}"></td>
+									</tr>
+									<tr>
+										<td><strong>Combustible Consumido</strong></td>
+										<td><input type="text" disabled="True" id="comb" value="{{total_camiones_combustible}}"></td>
+									</tr>
+									<tr>
+										<td><strong>Ralentí Total</strong></td>
+										<td><input type="text" disabled="True" id="ralenti" value="{{total_ralenti}}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-6">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-md-6" style="text-align: left;">
+								<a href="{% url 'Info_Fuente' empresa.pk %}"><button class="btn btn-primary" style="text-align: left;">Ver Información de la Fuente de Información</button></a>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive table--no-card m-b-30">
+							<table class = "table table-bordered" style="text-align: center">
+								<tbody>
+									<tr>
+										<td><strong>N° Flotas</strong></td>
+										<td><input type="text" disabled="True" id="num_flota" value="{{Total_flota}}"></td>
+									</tr>
+									<tr>
+										<td><strong>N° Tracto Camiones</strong></td>
+										<td><input type="text" disabled="True" id="num_trac" value="{{Total_camiones_t}}"></td>
+									</tr>
+									<tr>
+										<td><strong>N° Camiones Rigidos</strong></td>
+										<td><input type="text" disabled="True" id="num_rigid" value="{{Total_camiones_u}}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="text-align: center;">
+						<h3>Emisiones</h3>
+					</div>
+					<div class="card-body">
+						
+						<div class="table-responsive table--no-card m-b-30">
+							<table class = "table table-bordered" style="font-size: 12px;padding-right: 3px;text-align: center">
+								<thead>
+									<tr>
+										<th>CO2</th>
+										<th>NOx</th>
+										<th>PM</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input id="co2" value="{{ Reporte.0.CO2 }}" disabled="true" style="width: 100%;text-align:center;" disabled="true"></td>
+										<td><input id="nox" value="{{ Reporte.0.NOx }}" disabled="true" style="width: 100%;text-align:center;" disabled="true"></td>
+										<td><input id="pm" value="{{ Reporte.0.PM}}" disabled="true" style="width: 100%;text-align:center;" disabled="true"></td>
+									</tr>
+								</tbody>
+							</table>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xl-6"></div>
+	<div class="col-xl-6"></div>
+</div>		
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+$(document).ready(function(){
+	function reverse(num){
+            var x = num.length;
+            var cadena = "";
+            while (x>=0) {
+                cadena = cadena + num.charAt(x);
+                x--;
+            }
+            return cadena;
+        }
+	function format(num) {
+        var cont = 0;
+        final = '';
+        if(num[1] == undefined){
+        	revese = reverse(num[0]);
+
+        }else{
+        	revese = reverse(num[0]);
+        }
+        for (var i = 0; i < parseInt(revese.length); i++) {
+            if(cont == 3){
+                final += '.' + revese[i];
+                cont = 1;
+            }else{
+                cont += 1;
+                final+= revese[i];  
+            }
+        }
+        if(num[1] == undefined){
+        	final = reverse(final);
+        }else{
+        	final = reverse(final) + ',' + num[1];
+        	
+        }
+        return(final);
+    }
+
+
+    $("#kilo").val(format(($("#kilo").val()).toString().split('.')));
+    $("#comb").val(format(($("#comb").val()).toString().split('.')));
+    $("#ralenti").val(format(($("#ralenti").val()).toString().split('.')));
+    $("#co2").val(format(($("#co2").val()).toString().split('.')));
+    $("#nox").val(format(($("#nox").val()).toString().split('.')));
+    $("#pm").val(format(($("#pm").val()).toString().split('.')));
+    $("#num_flota").val(format(($("#num_flota").val()).toString().split('.')));
+    $("#num_trac").val(format(($("#num_trac").val()).toString().split('.')));
+    $("#num_rigid").val(format(($("#num_rigid").val()).toString().split('.')));
+
+});
+	
+</script>
+{% endblock JavaScript %}

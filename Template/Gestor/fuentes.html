@@ -1,0 +1,69 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+
+</style>
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="background-color: rgb(82,183,78) "> 
+						<a href="{% url 'Info_Detallada' empresa.pk %}">
+							<button id="atras" class="btn btn-success"><-Atras</button>	
+						</a>
+					  	<div  class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+					  		
+					  		<a class="nav-item nav-link active" id="nav-Uni-tab" data-toggle="tab" href="#nav-Uni" role="tab" aria-controls="nav-Uni" aria-selected="true" style="color:rgb(85,85,89)">Fuentes de Información</a>
+						    
+					  	</div>
+					</div>
+					<div class="card-body">
+						<div class="tab-content " id="nav-tabContent" >
+							<div class="tab-pane fade show active" id="nav-Uni"  role="tabpanel" aria-labelledby="nav-Uni-tab">
+								<div class="table-responsive table--no-card m-b-30"  style="text-align: center;">
+									
+										<table class = "table table-bordered" style="font-size:1.8vw;font-size:1.8vh;"  id="ss">
+											<thead>
+												<tr>
+													<th>Kilómetros promedios por camión por año</th>
+													<th>Litros de combustible consumidos por camión por año</th>
+													<th>Promedio de horas de ralentí por día</th>
+													<th>Velocidad de operación promedio</th>	
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input type="text" disabled="True" class="form-control" value="{{fuente.0.get_Fuente_Kilometros_display}}"></td>
+													<td><input type="text" disabled="True" class="form-control" value="{{fuente.0.get_Fuente_Litros_display}}"></td>
+													<td><input type="text" disabled="True" class="form-control" value="{{fuente.0.get_Fuente_Ralenti_display}}"></td>
+													<td><input type="text" disabled="True" class="form-control" value="{{fuente.0.get_Fuente_Velocidad_display}}"></td>
+												</tr>
+											</tbody>
+										</table>	
+									<br>
+								</div>
+								
+								
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock Content %}
+{% block JavaScript %}
+{% endblock JavaScript %}

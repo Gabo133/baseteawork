@@ -1,0 +1,165 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	th,p {
+		font-size: 1.7hz;
+		font-size: 1.7vh;
+	}
+	input {
+		width: 80px;
+	}
+</style>
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="background-color: rgb(82,183,78) ">
+						<div  class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+					  		<a class="nav-item nav-link active" id="nav-Uni-tab" data-toggle="tab" href="#nav-Uni" role="tab" aria-controls="nav-Uni" aria-selected="true" style="color:rgb(85,85,89)">Agregados</a>
+					  	</div>
+					</div>
+					<div class="card-body">
+						{% for i in camion %}
+						<div class="row">
+							<div class="col-md-12">
+								{% if i.Tipo == 'Un' %}
+									<button type="button" class="btn btn-outline-primary btn-lg btn-block" data-toggle="modal" data-target="#modalt{{i.pk}}">{{i.Numero_Camiones}} CAMIONES RIGIDOS DE {{i.get_Categoria_display}} DEL AÑO {{i.Ano_Camion}} CON UN PESO BRUTO DE {{ i.get_Masa_display }}</button>
+								{% else %}
+									<button type="button" class="btn btn-outline-primary btn-lg btn-block" data-toggle="modal" data-target="#modalt{{i.pk}}">{{i.Numero_Camiones}} TRACTOCAMIONES DE {{i.get_Categoria_display}} DEL AÑO {{i.Ano_Camion}} CON UN PESO BRUTO DE {{ i.get_Masa_display }}</button>
+								{% endif %}
+
+							</div>
+						</div>
+						<br>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+
+{% for i in camion %}
+<div  class="modal fade bd-example-modal-lg" id="modalt{{i.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" style="max-width: 1200px;" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Información</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+
+				{% csrf_token %}
+					<div class="row">
+						<div class="col-md-6">
+							<br>
+							<div class="table-responsive table--no-card m-b-30"  style="text-align: center;">
+								<table class = "table table-bordered">
+									<thead>
+										<tr>
+											<th>Tipo de Combustible</th>
+											<th>N° de Camiones</th>
+											<th>Año</th>
+											<th>Tecnología</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>{{ i.get_Categoria_display }}</td>
+											<td>{{ i.Numero_Camiones }}</td>
+											<td>{{ i.Ano_Camion }}</td>
+											<td>{{ i.get_Tecnologia_display }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<br>
+							<div class="table-responsive table--no-card m-b-30"  style="text-align: center;">
+								<table class = "table table-bordered">
+									<thead>
+										<tr>
+											<th>Promedio carga útil por viaje (Ton)</th>
+											<th>Promedio horas de ralentí Dia/Camión</th>
+											<th>Días de operación al año</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>{{ i.Promedio_Carga }}</td>
+											<td>{{ i.Promedio_Ralenti }}</td>
+											<td>{{ i.Dias_Operacion }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-md">
+							<br>
+							<div class="table-responsive table--no-card m-b-30"  style="text-align: center;">
+								<table class = "table table-bordered">
+									<thead>
+										<tr>
+											<th>Kilometros promedio recorridos por Camión/Año</th>
+											<th>Litros de combustible consumidos por Camión/Año</th>
+											<th>Peso bruto vehicular</th>
+											<th><p>Proporción recorrido tramo</p> <p>urbano/interurbano (%)</p></th>
+											<th><p>Velocidad promedio</p><p>urbano/interurbano</p></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>{{ i.Kilometros_Promedio }}</td>
+											<td>{{ i.Litros_Combustible }}</td>
+											<td>{{ i.get_Masa_display }}</td>
+											<td>
+												<div class="row" style="width:300px;">
+													<div class="col-md-6">
+														{{ i.Proporcion_Urbano }}
+													</div>
+													<div class="col-md-6">
+														{{ i.Proporcion_Interurbano }}
+													</div>
+												</div>
+											</td>
+											<td>
+												<div class="row" style="width:300px;">
+													<div class="col-md-6">
+														{{ i.Velocidad_Urbano }}
+													</div>
+													<div class="col-md-6">
+														{{ i.Velocidad_Interurbano }}
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}                                                  
+{% endblock Content %}
+{% block JavaScript %}
+
+{% endblock JavaScript %}

@@ -1,0 +1,451 @@
+
+{% extends "Partials/Asociado/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+
+<style>
+    $custom-file-text: (
+	  en: "Browse",
+	  es: "Elegir"
+	);
+</style>
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					
+					<div class="card-header" style="background-color: rgb(82,183,78) "> 
+
+					  	<div  class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+					  		{% if nav == 1%}
+					  			<a class="nav-item nav-link active" id="nav-Empresa-tab" data-toggle="tab" href="#nav-Empresa" role="tab" aria-controls="nav-Empresa" aria-selected="true" style="color:rgb(85,85,89)">Empresa</a>
+					  		{% else %}
+					  			<a class="nav-item nav-link" id="nav-Empresa-tab" data-toggle="tab" href="#nav-Empresa" role="tab" aria-controls="nav-Empresa" aria-selected="true" style="color:rgb(85,85,89)">Empresa</a>
+					  		{% endif %}{% if nav == 2 %}
+						    	<a class="nav-item nav-link active" id="nav-Otros-tab" data-toggle="tab" href="#nav-Contactos" role="tab" aria-controls="nav-Otros" aria-selected="false"style="color:rgb(85,85,89)">Otros Contactos</a>
+						    {% else %}
+						    	<a class="nav-item nav-link" id="nav-Otros-tab" data-toggle="tab" href="#nav-Contactos" role="tab" aria-controls="nav-Otros" aria-selected="false"style="color:rgb(85,85,89)">Otros Contactos</a>
+						    {% endif %}
+						    
+					  	</div>
+						
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="nav-tabContent">
+							{% if nav == 1%}
+								<div class="tab-pane fade show active" id="nav-Empresa" role="tabpanel" aria-labelledby="nav-Empresa-tab">
+					  		{% else %}
+								<div class="tab-pane fade" id="nav-Empresa" role="tabpanel" aria-labelledby="nav-Empresa-tab">
+					  		{% endif %}
+								<form action="{% url 'MiInfoAsociado'%}" enctype="multipart/form-data" class="form-horizontal" method="POST" >
+									{% csrf_token %}
+									<input type="text" id="id_action" name="action" value="EmpresaInfo" hidden>
+									<div align="center">
+										<h1>Datos</h1>
+						            	<p>A continuación deberá ingresar la infromación de la empresa y de la persona encargada de firmar</p>
+						            	<p>el certificado. Como Girolimpio solicitamos ingresar toda la inforamción solicitada</p>
+										
+									</div>
+						            <br>
+						            <div class="row form-group">
+						            	<div class="col-md-12">
+											<label for=""><strong>Nombre de la empresa</strong></label>
+											{{ EmpresaInfo.Nombre_Empresa }}
+						            	</div>
+						            </div>
+						            <div class="row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Rut</strong></label>
+						            		
+											{{ EmpresaInfo.Rut }}
+						            	</div>
+						            		
+										<div class="col-md-6">
+						            		<label for="Image"><strong>Logo</strong></label>
+						            		<div>
+						            			{{ EmpresaInfo.Imagen }}
+						            		</div>
+						            	</div>
+						            </div>
+				            		<div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Dirección</strong></label>
+											{{ EmpresaInfo.Direccion }}
+						            	</div>
+						            	<div class="col-md-6">
+											<label for=""><strong>Documento de Convenio</strong></label>
+											<div>
+												{{ EmpresaInfo.Documento }}
+											</div>
+						            	</div>
+						            </div>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Comuna</strong></label>
+											{{ EmpresaInfo.Comuna }}
+						            	</div>
+						            	<div class="col-md-6">
+											<label for=""><strong>Ciudad</strong></label>
+											{{ EmpresaInfo.Ciudad }}
+						            	</div>
+						            </div>
+									
+						            <div class=" row form-group">
+						            	<div class="col-md-12">
+											<label for=""><strong>Región</strong></label>
+											{{ EmpresaInfo.Region }}
+						            	</div>
+						            </div>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Sitio Web</strong></label>
+											{{ EmpresaInfo.Sitio_Web }}
+						            	</div>
+						            	<div class="col-md-6">
+						            		<label for=""><strong>Correo</strong></label>
+											{{ EmpresaInfo.Correo }}
+											<label id="val_correo" style="display:none">Correo Erroneo</label>       
+						            	</div>
+						            </div>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Teléfono Fijo</strong></label>
+											{{ EmpresaInfo.Telefono_F}}
+						            	</div>
+						            	<div class="col-md-6">
+						            		<label for=""><strong>Teléfono Móvil</strong></label>
+											{{ EmpresaInfo.Telefono_C}}
+						            	</div>
+						            </div>
+						            <hr>
+						            <br>
+						            <h3 class="text-center title-2">Encargado de Firmar</h3>
+						            <br>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Nombre</strong></label>
+											{{ EmpresaInfo.Nombre_firma}}
+						            	</div>
+						            	<div class="col-md-6">
+						            		<label for=""><strong>Cargo</strong></label>
+											{{ EmpresaInfo.Cargo}}
+						            	</div>
+						            </div>
+									<div align="right">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+									</div>
+									</div>
+				         		</form>
+							{% if nav == 2 %}
+								<div class="tab-pane fade show active" id="nav-Contactos" role="tabpanel" aria-labelledby="nav-Contactos-tab">
+
+					  		{% else %}
+								<div class="tab-pane fade" id="nav-Contactos" role="tabpanel" aria-labelledby="nav-Contactos-tab">
+					  		{% endif %}
+					  		<div align="center">
+					  			<h1>Otros Contactos</h1>
+					  				<p>Posibilidad de ingresar un contacto que no sea tecnico(<strong>Opcional</strong>).</p>
+					  		</div>
+					  		<div align="right">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ContactoModal">Agregar Contacto</button>
+								</div>
+								<div class="table-responsive table--no-card m-b-30">
+									<table class = "table table-striped">
+										<thead>
+											<tr>
+												<th>Nombre</th>
+												<th>Cargo</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for i in contact %}
+												{% if i.Tipo == 'Ot' %}
+												<tr>
+													<td>{{i.Nombre}}</td>
+													<td>{{i.Cargo}}</td>
+													<td>
+														<button  id="edito{{i.pk}}" type="button" data-toggle="modal" data-target="#EditContact1" ><i style="color: green" class="fas fa-edit"></i> </button>
+														<a href="{% url 'DelContactAso' i.pk %}"><i style="color: red" class="fas fa-trash-alt"></i></a>
+													</td>
+												</tr>
+												{% endif %}
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+								
+							</div>
+
+							
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+</div>
+
+							
+<!-- Modal Contacto -->
+<div class="modal fade bd-example-modal-lg" id="ContactoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Agregar un contacto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form action="{% url 'MiInfoAsociado'%}" class="form-horizontal" method="POST" >
+      		<input type="text" id="id_action" name="action" value="ContactoInfo_New_Ot" class="hidden" hidden>
+			{% csrf_token %}
+            <div class="row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Nombre</strong></label>
+					{{ContactoInfo.Nombre}}
+            		
+            	</div>
+            	<div class="col-md-6">
+					<label for=""><strong>Cargo</strong></label>
+					{{ContactoInfo.Cargo}}							            		
+            	</div>
+            </div>
+            
+         	<div align="center">
+        <button type="button" id="Cargar_Contacto" class="btn btn-success">Cargar Dirección de la Empresa</button>
+         	</div>
+            <div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Ciudad</strong></label>
+					{{ContactoInfo.Ciudad}}
+            	</div>
+        	</div>
+        	<div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Región</strong></label>
+					{{ContactoInfo.Region}}
+            	</div>
+            	<div class="col-md-6">
+            		<label for=""><strong>Correo</strong></label>
+            		{{ContactoInfo.Correo}}
+					<label id="val_correo2" style="display:none">Correo Erroneo</label>       
+
+            	</div>
+        	</div>
+        	<div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Teléfono Fijo</strong></label>
+					{{ContactoInfo.Telefono_F}}
+            	</div>
+            	<div class="col-md-6">
+            		<label for=""><strong>Teléfono Móvil</strong></label>
+            		{{ContactoInfo.Telefono_C}}
+            	</div>
+        	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% for i in edit_contact_ot %}
+<div class="modal fade bd-example-modal-lg" id="modalo{{i.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Editar contacto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      	<form action="{% url 'EditContactAso' i.instance.pk %}" class="form-horizontal" method="POST" >
+      		<input type="text" id="id_action" name="action" value="EditContact" class="hidden" hidden>
+			{% csrf_token %}
+
+            <div class="row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Nombre</strong></label>
+					{{i.Nombre}}
+            		
+            	</div>
+            	<div class="col-md-6">
+					<label for=""><strong>Cargo</strong></label>
+					{{i.Cargo}}							            		
+            	</div>
+            </div>
+            
+         	<div align="center">
+        <button type="button" id="Cargar_Contacto" class="btn btn-success">Cargar Dirección de la Empresa</button>
+         	</div>
+            <div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Ciudad</strong></label>
+					{{i.Ciudad}}
+            	</div>
+        	</div>
+        	<div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Región</strong></label>
+					{{i.Region}}
+            	</div>
+            	<div class="col-md-6">
+            		<label for=""><strong>Correo</strong></label>
+            		{{i.Correo}}
+					<label id="val_correo2" style="display:none">Correo Erroneo</label>       
+
+            	</div>
+        	</div>
+        	<div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Teléfono Fijo</strong></label>
+					{{i.Telefono_F}}
+            	</div>
+            	<div class="col-md-6">
+            		<label for=""><strong>Teléfono Móvil</strong></label>
+            		{{i.Telefono_C}}
+            	</div>
+        	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+		$("#Rut").on('change', function() {
+			Rut(this);
+		});
+		$('#Cargar_Contacto').on('click', function() {
+			$('#Region1').val("{{Empresa.Region}}");
+			$('#Telefono_F1').val("{{Empresa.Telefono_F}}");
+			$('#Telefono_C1').val("{{Empresa.Telefono_C}}");
+			$('#Ciudad1').val("{{Empresa.Ciudad}}");
+		});
+		$('#Cargar_Contacto_Tec').on('click', function() {
+			$('#Regiont').val("{{Empresa.Region}}");
+			$('#Telefono_Ft').val("{{Empresa.Telefono_F}}");
+			$('#Telefono_Ct').val("{{Empresa.Telefono_C}}");
+			$('#Ciudadt').val("{{Empresa.Ciudad}}");
+		});
+
+		{% for i in contact %}
+			$('#edito{{i.pk}}').on('click', function() {
+				var pk = "{{i.pk}}";
+				$('#modalo{{i.pk}}').modal();
+				$('#o1{{i.pk}}').val("{{i.Nombre}}");
+				$('#o2{{i.pk}}').val("{{i.Cargo}}");
+				$('#o6{{i.pk}}').val("{{i.Region}}");
+				$('#o9{{i.pk}}').val("{{i.Telefono_C}}");
+				$('#o8{{i.pk}}').val("{{i.Telefono_F}}");
+				$('#o7{{i.pk}}').val("{{i.Correo}}");
+				$('#o5{{i.pk}}').val("{{i.Ciudad}}");
+			});
+			$('#editt{{i.pk}}').on('click', function() {
+				var pk = "{{i.pk}}";
+				$('#modalt{{i.pk}}').modal();
+				$('#t1{{i.pk}}').val("{{i.Nombre}}");
+				$('#t2{{i.pk}}').val("{{i.Cargo}}");
+				$('#t6{{i.pk}}').val("{{i.Region}}");
+				$('#t9{{i.pk}}').val("{{i.Telefono_C}}");
+				$('#t8{{i.pk}}').val("{{i.Telefono_F}}");
+				$('#t7{{i.pk}}').val("{{i.Correo}}");
+				$('#t5{{i.pk}}').val("{{i.Ciudad}}");
+			});
+			$('#Cargar_Contacto{{i.pk}}').on('click', function() {
+				$('#Direccion1').val("{{Empresa.Direccion}}");
+				$('#o6{{i.pk}}').val("{{Empresa.Region}}");
+				$('#o8{{i.pk}}').val("{{Empresa.Telefono_F}}");
+				$('#o9{{i.pk}}').val("{{Empresa.Telefono_C}}");
+				$('#o5{{i.pk}}').val("{{Empresa.Ciudad}}");
+			});
+			$('#Cargar_Contactot{{i.pk}}').on('click', function() {
+				$('#Direccion1').val("{{Empresa.Direccion}}");
+				$('#t6{{i.pk}}').val("{{Empresa.Region}}");
+				$('#t8{{i.pk}}').val("{{Empresa.Telefono_F}}");
+				$('#t9{{i.pk}}').val("{{Empresa.Telefono_C}}");
+				$('#t5{{i.pk}}').val("{{Empresa.Ciudad}}");
+			});
+				
+		{% endfor %}
+
+
+$("#Correo").on('change',function(){
+	campo = $("#Correo").val();
+	if(campo != ''){
+
+	    emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	    //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+	    if (emailRegex.test(campo)) {
+	      $("#val_correo").hide();
+
+	    } else {
+	      $("#val_correo").show();
+	    }
+	}else{
+		
+	      $("#val_correo").hide();
+	}
+});
+$("#Correo1").on('change',function(){
+		campo = $("#Correo1").val();
+	if(campo != ''){
+	    emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	    //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+	    if (emailRegex.test(campo)) {
+	      $("#val_correo2").hide();
+
+	    } else {
+	      $("#val_correo2").show();
+	    }
+	}else{
+	      $("#val_correo2").hide();
+
+	}
+});
+$("#Correot").on('change',function(){
+		campo = $("#Correot").val();
+	if(campo != ''){
+	    emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	    //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+	    if (emailRegex.test(campo)) {
+	      $("#val_correo3").hide();
+
+	    } else {
+	      $("#val_correo3").show();
+	    }
+	}else{
+	      $("#val_correo3").hide();
+	      
+	}
+});
+function cambiar(){
+    var pdrs = document.getElementById('file-upload').files[0].name;
+    document.getElementById('info').innerHTML = pdrs;
+}
+
+</script>
+<script src="{% static 'js/validarut_miinfo.js' %}" ></script>
+{% endblock JavaScript %}

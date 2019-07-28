@@ -1,0 +1,49 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	button{
+			padding: 100px;
+			background-color: rgb(141,227,92,0.3); 
+
+		    border-radius: 50%;
+		    text-align: center;
+		    font-size: 12px;
+		    line-height: 1.42857;
+		    border-color: black;
+		}
+		.space-button{
+			margin-top: 130px;
+			margin-left: 10px; 
+		}
+</style>
+
+{% endblock Style %}
+{% block Content %}
+
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md-4">
+			<div class="space-button">
+				<a href="{% url 'Gestionar_Perfil' %}"><button><strong>Administar Usuarios</strong></button></a>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="space-button">
+				<a href="{% url 'Ver_Mensajes' %}"><button><strong>Mensajería</strong></button></a>
+			</div>
+		</div>	
+		<div class="col-md-4">
+			<div class="space-button">
+				<a href="{% url 'Ver_Perfiles_Horario' %}"><button><strong>Horario</strong></button></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+{% endblock JavaScript %}

@@ -1,0 +1,45 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	.top {
+		position: relative;
+  		top:-45px;
+  		padding-left: 20px;
+  		padding-right: 20px;
+  		padding-bottom: 0px;
+	}
+</style>
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30" style="top:10px;">
+	<div class=" top row">
+		<div class="col-md card ">
+			<div align="center">
+				<img src="{% static 'images/logo/02LogoGiroFondoBlanco.png' %}" width="600px" height="400px" alt="">
+			</div>
+			<div style="padding-left:20%; padding-right: 20%;" align="justify">
+			<p>Estamos contentos, porque nuestro trabajo está siendo conocido y reconocido. #GiroLimpio fue nominado en la categoría “Acción por el clima ” de los Premios Iniciativas Sustentables 2018, que realiza el HUB Sustentabilidad de LT-PULSO.</p>
+			<br>
+			<p>Por sexto año, HUB Sustentabilidad invitó a participar de los premios “Mejores iniciativas sustentables”, un reconocimiento a proyectos, personas y políticas que destacan por su aporte a una sociedad más sustentable en el ámbito del medio ambiente, comunidades, desarrollo laboral e impacto a la sociedad.</p>
+			<br>
+			<p>Este año las categorías son siete y están inspiradas en algunos de los Objetivos de Desarrollo Sostenibles de la ONU, uno de los acuerdos más grandes de la historia de la humanidad, donde cerca de 200 países, incluyendo Chile, se comprometieron a un desarrollo más sustentable al 2030.</p>
+			<br>
+			<p>Acción por el clima, una de ellas y  reconoce a las empresas y organismos que estén adoptando medidas para combatir el cambio climático y sus efectos,  justamente la línea de trabajo de GiroLimpio, como explica el Director del Programa, Julio Villalobos.</p>
+			<br>
+			<p>“El objetivo de este sello especial será mejorar la eficiencia energética en el transporte de carga por carretera en Chile. Esto, a través de la reducción del consumo de combustibles altamente contaminantes y la implementación de una serie de buenas prácticas. La idea es que las empresas de transporte reporten sus niveles de emisiones y además reducción de los costos para el sector”.</p>
+			<br>
+			<p>El programa fue desarrollado por Corfo y el Centro de Transporte y Logística de la Universidad Andrés Bello (Unab), con financiamiento del Ministerio de Energía. La obtención del sello considera un periodo de evaluación.</p>
+			<br>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+{% endblock JavaScript %}

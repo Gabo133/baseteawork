@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+   <!--Made with love by Mutiullah Samim -->
+   
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- {% static 'vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!--Custom styles-->
+   
+    <style>
+        html,body{
+        background-image: url("{% static 'images/shutterstock/shutterstock_565702024_web.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container" style="">
+    <div class="row">
+        <div class="col-md">
+            <div style="padding-top: 120px;text-align: center;align-items: center;">
+                <img src="{% static 'images/logo/01LogoGiro.png' %}" width="600" alt="" >
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top:10px;">
+        <div class="col-md-12" >
+            <div class="card" style="text-align: center; align-items: center;background-color:rgb(255,255,255,0.5)">
+                <div class="card-body">
+                    <form role="form" method="post" action="{% url 'Verificacion' %}"  >
+                        {% csrf_token %}
+                        <h1><strong>Validación de Documentos</strong></h1>
+                        <p>Para Verificar la legitimidad del documento solo debe ingresar el número del folio del documento<br>y el número del Rut encontrados en la parte inferior del documento</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label><strong>N° de Documento</strong></label>
+                                <input type="text" class="form-control" name="Numero_Documento" placeholder="Ingrese el numero del documento">
+                            </div>
+                            <div class="col-md-6">
+                                <label><strong>N° de Rut</strong></label>
+                                <input type="text" class="form-control" name="Rut" placeholder="Ingrese el numero del Run">
+                            </div>
+                        </div>
+                            <div style="padding-top:3px;">
+                                <button class="btn btn-success">Consultar</button>
+                            </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

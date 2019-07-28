@@ -1,0 +1,212 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	/* Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+/* The search field */
+#myInput {
+  box-sizing: border-box;
+  background-image: url('searchicon.png');
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+/* The search field when it gets focus/clicked on */
+#myInput:focus {outline: 3px solid #ddd;}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+</style>
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="text-align: center;">
+						<h2>Usuarios</h2>
+					</div>
+					<div style="text-align: right;padding-right:20px;">
+						<button data-toggle="modal" data-target="#ModalPerfil" class="btn btn-primary">Nueva Conversación</button>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive table--no-card m-b-30">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Mensaje</th>
+										<th>Acción</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in contacts %}
+									<tr>
+										<td>{{i.Emisor}}</td>
+										<td>
+											{{i.Mensaje}}
+										</td>
+										<td>
+											<a href=""><button class="btn-success">Responder</button></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+					      <ul class="pagination">
+					        {% if contacts.has_previous %}
+					        <li class="page-item">
+					          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+					        </li>
+					        {% else %}
+					        <li class="page-item disabled">
+					          <a class="page-link">Anterior</a>
+					        </li>
+					        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+					        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+					        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+					        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+					        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+					          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+					          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+					          {% endif %} {% if contacts.has_next %}
+					          <li class="page-item">
+					            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+					          </li>
+					          {% else %}
+					          <li class="page-item disabled">
+					            <a class="page-link">Siguiente</a>
+					          </li>
+					          {% endif %}
+					      </ul>
+					    </div>
+					</div>
+					{% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissable" {% endif %}>
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{message}}.
+                    </div>
+                {% endfor %}
+                {% endif %}
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Agregar un Perfil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form action="" class="form-horizontal" method="POST" >
+			{% csrf_token %}
+			<div>
+				<h3>Elija una Persona</h3>
+				<div class="dropdown">
+				  <!-- <button onclick="myFunction()" class="dropbtn" type="button">Dropdown</button> -->
+				  <div id="myDropdown" class="dropdown-content">
+				    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+				    {% for i in personas%}
+				    	<a href="{% url 'Chat' i.pk %}">{{ i.Usuario }}</a>
+				    {% endfor %}
+				  </div>
+				</div>
+			</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+</script>
+{% endblock JavaScript %}

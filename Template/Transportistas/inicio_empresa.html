@@ -1,0 +1,429 @@
+
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <div>
+                        <h1><strong>Bienvenido a Girolimpio</strong></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-t-25">
+                <div class="col-sm-4 col-lg-3" style="">
+                    <div class="overview-item overview-item--c1" >
+                        <div class="overview__inner" style="text-align: center; height:200px; font-size:1.8vw;font-size:1.8vh;" >
+                                
+                                <div class="overview-box clearfix">
+                            <div class="col-md-12" style="padding-top: 10px;">
+                                    <div class="icon col-md-5">
+                                        <i class="fas fa-truck" style="position: relative;"></i>
+                                    </div>
+                                    <div class="text col-md-7" style="">
+                                        <h2><strong><input id="Cami" style="background-color: transparent;padding-left:40%;color: white;" value="{{camiones}}" disabled="True"></strong></h2>
+                                        <span><strong>Camiones</strong></span>
+                                    </div>
+                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-3" style="">
+                    <div class="overview-item overview-item--c1" >
+                        <div class="overview__inner" style="text-align: center; height:200px;font-size:1.8vw;font-size:1.8vh;" >
+                                
+                                <div class="overview-box clearfix">
+                            <div class="col-md-12" style="padding-top: 10px;">
+                                    <div class="icon col-md-5">
+                                        <i class="fas fa-truck" style="position: relative;"></i>
+                                    </div>
+                                    <div class="text col-md-7" style="">
+                    
+                                        <h2><strong><input style="background-color: transparent;padding-left:30%;color: white;" id="kilo" value="{{kilometros}}" disabled="True"></strong></h2>
+                                        <span><strong>kilometros Recorridos</strong></span>
+                                    </div>
+                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-3" style="">
+                    <div class="overview-item overview-item--c1" >
+                        <div class="overview__inner" style="text-align: center; height:200px;font-size:1.8vw;font-size:1.8vh;" >
+                                
+                                <div class="overview-box clearfix">
+                            <div class="col-md-12" style="padding-top: 10px;">
+                                    <div class="icon col-md-5">
+                                        <i class="fas fa-truck" style="position: relative;"></i>
+                                    </div>
+                                    <div class="text col-md-7" style="">
+                    
+                                        <h2><strong><input style="background-color: transparent;padding-left:30%;color: white;" id="ralenti" value="{{ralenti}}" disabled="True"></strong></h2>
+                                        <span><strong>Horas Total Ralenti</strong></span>
+                                    </div>
+                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-3" style="">
+                    <div class="overview-item overview-item--c1" >
+                        <div class="overview__inner" style="text-align: center; height:200px; font-size:1.8vw;font-size:1.8vh;width: 100%;" >
+                                
+                                <div class="overview-box clearfix">
+                            <div class="col-md-12" style="padding-top: 10px;">
+                                    <div class="icon col-md-5">
+                                        <i class="fas fa-truck" style=""></i>
+                                    </div>
+                                    <div class="text col-md-7" style="">
+                                        <h2><strong><input style="background-color: transparent;padding-left:30%;color: white;" id="Litro" value="{{litros}}" disabled="True"></strong></h2>
+                                        <span><strong>Litros Consumidos</strong></span>
+                                    </div>
+                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </div><!-- 
+                <div class="col-sm-3 col-lg-3" style="">
+                    <div class="overview-item overview-item--c2" >
+                        <div class="overview__inner" style="text-align: center; height:200px;font-size:1.8vw;font-size:1.8vh;" >
+                                
+                                <div class="overview-box clearfix">
+                            <div class="col-md-12" style="padding-top: 10px;">
+                                    <div class="icon col-md-5">
+                                        <i class="fas fa-truck" style="position: relative;"></i>
+                                    </div>
+                                    <div class="text col-md-7" style="">
+                                        <h2><strong>{{camiones}}</strong></h2>
+                                        <span><strong>Camiones</strong></span>
+                                    </div>
+                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="au-card recent-report">
+                        <div class="au-card-inner">
+                            <h3 class="title-1"><strong>Emisiones</strong></h3>
+                            <div class="chart-info">
+                                <div class="chart-info__left">
+                                    <div class="chart-note">
+                                        <span class="dot dot--blue"></span>
+                                        <span>CO2</span>
+                                    </div>
+                                    <div class="chart-note mr-0">
+                                        <span class="dot dot--green"></span>
+                                        <span>NOx</span>
+                                    </div>
+                                    <div class="chart-note mr-0">
+                                        <span class="dot dot--red"></span>
+                                        <span>PM</span>
+                                    </div>
+                                </div>
+                                <div class="chart-info">
+                                    <div class="chart-statis mr-0">
+                                        {% if inc_CO2 < 0 %}
+                                        <span class="index">
+                                            <i class="zmdi zmdi-long-arrow-down"></i>{{inc_CO2}}</span>
+                                        <span class="label">CO2</span>
+                                        {% else %}
+                                        <span class="index decre">
+                                            <i class="zmdi zmdi-long-arrow-up" style="color:red"></i>{{inc_CO2}}</span>
+                                        <span class="label">CO2</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="chart-statis mr-0" style="padding-left:10px;">
+                                        {% if inc_NOx < 0 %}
+                                        <span class="index">
+                                            <i class="zmdi zmdi-long-arrow-down" style="color:green"></i>{{inc_NOx}}</span>
+                                        <span class="label">NOx</span>
+                                        {% else %}
+                                        <span class="index decre">
+                                            <i class="zmdi zmdi-long-arrow-up" style="color:red"></i>{{inc_NOx}}</span>
+                                        <span class="label">NOx</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="chart-statis mr-0" style="padding-left:10px;">
+                                        {% if inc_PM < 0 %}
+                                        <span class="index">
+                                            <i class="zmdi zmdi-long-arrow-down"></i>{{inc_PM}}</span>
+                                        <span class="label">PM</span>
+                                        {% else %}
+                                        <span class="index decre">
+                                            <i class="zmdi zmdi-long-arrow-up" style="color:red"></i>{{inc_PM}}</span>
+                                        <span class="label">PM</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="recent-report__chart">
+                                <canvas id="recent-rep-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="au-card chart-percent-card">
+                        <div class="au-card-inner">
+                            <h2>Emisiones Mas Contaminantes</h2>
+                            <div class="row no-gutters">
+                                <div class="col-xl-6">
+                                    <div class="chart-note-wrap">
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--blue"></span>
+                                            <span>CO2</span>
+                                        </div>
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--green"></span>
+                                            <span>NOx</span>
+                                        </div>
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--red"></span>
+                                            <span>PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="percent-chart">
+                                        <canvas id="percent-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" >
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Aviso</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2 style="color:red;">Aún no envía la Información del año {{ano}}</h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+    $(document).ready(function(){
+       
+        {% if empresa.Estado == False %}
+            $("#modal").modal();
+        {% endif %}
+        function reverse(num){
+            var x = num.length;
+            var cadena = "";
+            while (x>=0) {
+                cadena = cadena + num.charAt(x);
+                x--;
+            }
+            return cadena;
+        }
+        function format(num) {
+            var cont = 0;
+            final = '';
+            revese = reverse(num.toString())
+            for (var i = 0; i < parseInt(revese.length); i++) {
+                if(cont == 3){
+                    final += '.' + revese[i];
+                    cont = 1;
+                }else{
+                    cont += 1;
+                    final+= revese[i];  
+                }
+            }
+            return(reverse(final));
+        }
+
+        $("#kilo").val(format($("#kilo").val()));
+        $("#Cami").val(format($("#Cami").val()));
+        $("#Litro").val(format($("#Litro").val()));
+        $("#ralenti").val(format($("#ralenti").val()));
+    });
+     function float2dollar(value){
+        return (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+    const d = [];
+    var data1 = []
+    var data2 = []
+    var data3 = []
+    {% for i in Reporte %}
+        data1.push('{{i.CO2}}');
+        data2.push('{{i.NOx}}');
+        data3.push('{{i.PM}}');
+    {% endfor %}
+    {% for i in Anos %}
+        {% if largo == 1 %}
+
+            d.push('{{i}}');
+            d.push('{{i}}');
+            {% for i in Reporte %}
+                data1.push('{{i.CO2}}');
+                data2.push('{{i.NOx}}');
+                data3.push('{{i.PM}}');
+            {% endfor %}
+        {% else %}
+            d.push('{{i}}');
+        {% endif %}
+    {% endfor %}
+    var elements = 10
+    var ctx = document.getElementById("recent-rep-chart");
+    if (ctx) {
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: d,
+          datasets: [
+            {
+              label: 'Contaminacion',
+              borderColor: '#1C185B',
+              pointHoverBackgroundColor: '#1C185B',
+              borderWidth: 2,
+              fill:false,
+              data: data1
+
+            },{
+              label: 'Contaminacion',
+              borderColor: '#0DBE19',
+              pointHoverBackgroundColor: '#0DBE19',
+              borderWidth: 2,
+              fill: false,
+              data: data2
+
+            },
+            {
+              label: 'Contaminacion',
+              borderColor: '#fa4251',
+              pointHoverBackgroundColor: '#fa4251',
+              borderWidth: 2,
+              fill:false,
+              data: data3
+
+            },
+          ]
+        },
+        options: {
+          maintainAspectRatio: true,
+          legend: {
+            display: false
+          },
+          responsive: true,
+          scales: {
+            xAxes: [{
+              gridLines: {
+                drawOnChartArea: true,
+                color: '#f2f2f2'
+              },
+              ticks: {
+                fontFamily: "Poppins",
+                fontSize: 12
+              }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    callback: function(value, index, values) {
+                        return float2dollar(value);
+                    }
+                }
+            }]   
+          },
+          elements: {
+            point: {
+              radius: 0,
+              hitRadius: 10,
+              hoverRadius: 4,
+              hoverBorderWidth: 3
+            }
+          }
+
+
+        }
+      });
+    }
+    var ctx = document.getElementById("percent-chart");
+    var pm = parseFloat('{{por_pm}}');
+    if(pm==0){
+        pm = 1;
+    }
+    if (ctx) {
+      ctx.height = 280;
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              label: "My First dataset",
+              data: [parseFloat('{{por_co2}}'),parseFloat('{{por_nox}}'),pm],
+              backgroundColor: [
+                '#289BEC',
+                '#13D715',
+                '#EE0B0B'
+              ],
+              hoverBackgroundColor: [
+                '#289BEC',
+                '#13D715',
+                '#EE0B0B'
+              ],
+              borderWidth: [
+                0, 0, 0,
+              ],
+              hoverBorderColor: [
+                'transparent',
+                'transparent',
+                'transparent',
+              ]
+            }
+          ],
+          labels: [
+            'CO2',
+            'NOx',
+            'PM',
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          cutoutPercentage: 55,
+          animation: {
+            animateScale: false,
+            animateRotate: false
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            titleFontFamily: "Poppins",
+            xPadding: 15,
+            yPadding: 10,
+            caretPadding: 0,
+            bodyFontSize: 16
+          }
+        }
+      });
+    }
+</script>
+{% endblock JavaScript %}

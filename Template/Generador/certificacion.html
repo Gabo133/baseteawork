@@ -1,0 +1,67 @@
+{% extends "Partials/Generador/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30" > 
+	<div class="container-fluid">
+		<div class="col-md">
+			<div class="card">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="col-md-12" style="text-align: center">
+							{% if certificado == True %}
+								<h1 style="color:green;">certificado</h1>
+							{% else %}
+								<h1 style="color:red;">No certificado</h1>
+							{% endif %}
+						</div>
+						<br>
+
+						<table class = "table table-bordered" style="font-size: 15px;">
+                          <thead>
+                            <tr>
+                              <th>Nombre</th>
+                              <th>Rut</th>
+                              <th>Toneladas</th>
+                            </tr>
+                          </thead>
+                          <tbody id="Region">
+                              {% for i in informe %}
+                            <tr id="tr-forms">
+                              	<td>{{i.Nombre}}</td>
+                              	<td>{{i.Rut}}</td>
+                              	<td>{{i.Toneladas}}</td>
+                            </tr>
+                              {% endfor %}
+                          </tbody>
+                        </table>  
+                        {% if certificado == True %}
+							<p style="text-align: center;"><strong>El {{porciento}}% de su carga es transportada por Empresas certificadas en <label style="color:green">GiroLimpio</label>.</strong></p>
+						{% else %}
+							<p style="text-align: center;"><strong>El <label style="color: red;">{{porciento}}%</label> de su carga es transportada por Empresas certificadas en <label style="color:green">GiroLimpio</label>.</strong></p>
+						{% endif %}
+					</div>
+					{% if certificado == True %}
+					<div class="col-md-4">
+						<img src="{% static '/images/logo/Giro_Logo.png' %}" alt="">
+					</div>
+					{% else %}
+					<div class="col-md-4">
+						<img src="{% static '/images/logo/equis.png' %}" alt="">
+					</div>
+					{% endif %}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+
+{% endblock JavaScript %}

@@ -1,0 +1,226 @@
+
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					
+					<div class="card-header" style="background-color: rgb(82,183,78) "> 
+						<a href="{% url 'Ver_Info_As' %}">
+							<button id="atras" class="btn btn-success"><-Atras</button>	
+						</a>
+
+					  	<div  class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+					  			<a class="nav-item nav-link active" id="nav-Empresa-tab" data-toggle="tab" href="#nav-Empresa" role="tab" aria-controls="nav-Empresa" aria-selected="true" style="color:rgb(85,85,89)">Empresa</a>
+						    	<a class="nav-item nav-link" id="nav-Otros-tab" data-toggle="tab" href="#nav-Contactos" role="tab" aria-controls="nav-Otros" aria-selected="false"style="color:rgb(85,85,89)">Otros Contactos</a>
+						    
+						    
+					  	</div>
+						
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="nav-tabContent">
+							
+							<div class="tab-pane fade show active" id="nav-Empresa" role="tabpanel" aria-labelledby="nav-Empresa-tab">
+									<input type="text" id="id_action" name="action" value="EmpresaInfo" hidden>
+									<div align="center">
+										<h1>Datos</h1>
+										
+									</div>
+						            <br>
+						            <div class="row form-group">
+						            	<div class="col-md-12">
+											<label for=""><strong>Nombre de la empresa</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Nombre_Empresa}}>
+						            	</div>
+						            </div>
+						            
+						         
+						            <div class="row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Rut</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Rut}}>
+						            	</div>
+						            		
+										<div class="col-md-6">
+						            		<label for=""><strong>Logo: </strong></label>
+						            	
+											<img src="{% static Imagen %}" alt="" width="100" style="padding-left: 10px;">
+						            	</div>
+						            </div>
+				            		<div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Dirección</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Direccion}}>
+						            	</div>
+						            	<div class="col-md-6">
+											<label for=""><strong>Documento de Convenio</strong></label>
+											<div>
+												<a href="{% static Documento %}" download>Descargar</a>
+											</div>
+						            	</div>
+						            </div>
+
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Comuna</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Comuna}}>
+						            	</div>
+						            	<div class="col-md-6">
+											<label for=""><strong>Ciudad</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Ciudad}}>
+						            	</div>
+						            </div>
+
+						            <div class=" row form-group">
+						            	<div class="col-md-12">
+											<label for=""><strong>Región</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Region}}>
+						            	</div>
+						            </div>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Sitio Web</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Sitio_Web}}>
+						            	</div>
+						            	<div class="col-md-6">
+						            		<label for=""><strong>Correo</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Correo}}>    
+						            	</div>
+						            </div>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Teléfono Fijo</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Telefono_F}}>
+						            	</div>
+						            	<div class="col-md-6">
+						            		<label for=""><strong>Teléfono Móvil</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Telefono_C}}>
+						            	</div>
+						            </div>
+						            <hr>
+						            <br>
+						            <h3 class="text-center title-2">Encargado de Firmar</h3>
+						            <br>
+						            <div class=" row form-group">
+						            	<div class="col-md-6">
+											<label for=""><strong>Nombre</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Nombre_firma}}>
+						            	</div>
+						            	<div class="col-md-6">
+						            		<label for=""><strong>Cargo</strong></label>
+											<input type="text" disabled="True" class="form-control" value={{empresa.Cargo}}>
+						            	</div>
+						            </div>
+									</div>
+							
+						<div class="tab-pane fade" id="nav-Contactos" role="tabpanel" aria-labelledby="nav-Contactos-tab">
+							<div class="table-responsive table--no-card m-b-30">
+								<table class = "table table-striped">
+									<thead>
+										<tr>
+											<th>Nombre</th>
+											<th>Cargo</th>
+											<th>Acción</th>
+										</tr>
+									</thead>
+									<tbody>
+									{% for i in contact %}
+										{% if i.Tipo == 'Ot' %}
+										<tr>
+											<td>{{i.Nombre}}</td>
+											<td>{{i.Cargo}}</td>
+											<td>
+												<button class="btn btn-primary" data-toggle="modal" data-target="#modalt{{i.pk}}">Ver Más</button>
+											</td>
+										</tr>
+										{% endif %}
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+								
+						</div>
+
+							
+					</div>
+						
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>
+	
+</div>
+
+{% for i in contact %}
+<div class="modal fade bd-example-modal-lg" id="modalt{{i.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Información</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+
+            <div class="row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Nombre</strong></label>
+					<input type="text" name="Nombre" class="form-control" disabled="True" value="{{i.Nombre}}" placeholder="">
+            		
+            	</div>
+            	<div class="col-md-6">
+					<label for=""><strong>Cargo</strong></label>
+					<input type="text" name="Cargo" class="form-control" disabled="True" value="{{i.Cargo}}" placeholder="">
+            	</div>
+            </div>
+            <div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Ciudad</strong></label>
+					<input type="text" name="Ciudad" class="form-control" disabled="True" value="{{i.Ciudad}}"placeholder="">
+            	</div>
+        	</div>
+        	<div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Región</strong></label>
+					<input type="text" name="Region" class="form-control" disabled="True" value="{{i.Region}}" placeholder="">
+            	</div>
+            	<div class="col-md-6">
+            		<label for=""><strong>Correo</strong></label>
+					<input type="text" name="Correo" class="form-control" disabled="True" value="{{i.Correo}}" placeholder="">
+					<label id="val_correo" style="display:none">Correo Erroneo</label>
+            	</div>
+        	</div>
+        	<div class=" row form-group">
+            	<div class="col-md-6">
+					<label for=""><strong>Teléfono Fijo</strong></label>
+					<input type="text" name="Telefono_F" class="form-control" disabled="True" value="{{i.Telefono_F}}" placeholder="">
+            	</div>
+            	<div class="col-md-6">
+            		<label for=""><strong>Teléfono Móvil</strong></label>
+					<input type="text" name="Telefono_C" class="form-control" disabled="True" value="{{i.Telefono_C}}" placeholder="">
+            	</div>
+        	</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock Content %}
+{% block JavaScript %}
+{% endblock JavaScript %}

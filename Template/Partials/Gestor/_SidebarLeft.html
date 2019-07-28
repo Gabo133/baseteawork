@@ -1,0 +1,93 @@
+{% load static %}
+<div class="logo">
+    <a href="{% url 'Index_Gestor' %}">
+        <img src="{% static 'images/logo/01LogoGiro.png' %}" alt="GiroLimpio" />
+    </a>
+</div>
+<style>
+    
+#bord {
+    border-radius: 0px 111px 111px 111px;
+    -moz-border-radius: 0px 111px 111px 111px;
+    -webkit-border-radius: 0px 111px 111px 111px;
+    border: 0px solid #ffffff;
+}
+
+</style>
+<div class="menu-sidebar__content js-scrollbar1" >
+    <nav class="navbar-sidebar" >
+        <ul class="list-unstyled navbar__list" >
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="{% url 'Index' %}">
+                    <i class="fa fa-cc"></i>Inicio</a>
+
+                    
+            </li>
+            <li class=" has-sub" id="bord">
+                <a class="js-arrow" href="#">
+                    <i class="fa fa-cc"></i>Gestionar Perfiles</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{% url 'Gestionar_Perfil' %}">Transportistas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Gestionar_Perfil_Generador' %}">Generadores de Carga</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Gestionar_Perfil_Asociados' %}">Organizaciones Asociadas</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="#">
+                    <i class="fas fa-copy"></i>Ver Información</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{% url 'Ver_Info_Empresa' %}">Transportistas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Ver_Info_Pro' %}">Generadores de Carga</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Ver_Info_As' %}">Organizaciones Asociadas</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="#">
+                    <i class="fas fa-desktop"></i>Configuración</a>
+
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{% url 'Configuracion' %}">Transportistas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Configuracion_Generador' %}">Generadores de Carga</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="bord">
+                <a href="#" class="js-arrow"><i class="fas fa-desktop"></i> Exportar</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="#" class="js-arrow"><i class="fas fa-desktop"></i>Transportistas</a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a href="{% url 'Exportar_Empresa' %}"><i class="fas fa-desktop"></i> Por Transportistas</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'Exportar_Filtro' %}"><i class="fas fa-desktop"></i> Filtrar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'Exportar_Generador' %}"><i class="fas fa-desktop"></i> Por Generador de carga</a>
+                        
+                    </li>
+                    
+                    
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>

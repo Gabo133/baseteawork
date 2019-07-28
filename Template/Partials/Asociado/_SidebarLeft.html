@@ -1,0 +1,32 @@
+{% load static %}
+<div class="logo">
+    <a href="{% url 'Index' %}">
+        <img src="{% static 'images/logo/01LogoGiro.png' %}" alt="GiroLimpio" />
+    </a>
+</div>
+<style>
+    
+#bord {
+    border-radius: 0px 111px 111px 111px;
+    -moz-border-radius: 0px 111px 111px 111px;
+    -webkit-border-radius: 0px 111px 111px 111px;
+    border: 0px solid #ffffff;
+}
+</style>
+<div class="menu-sidebar__content js-scrollbar1" >
+    <nav class="navbar-sidebar" >
+        <ul class="list-unstyled navbar__list" >
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="{% url 'Index_Asociado' %}">
+                    <i class="fa fa-cc"></i>Inicio</i></a>
+
+                    
+            </li>
+            <li class=" has-sub" id="bord">
+                <a class="js-arrow" href="{% url 'MiInfoAsociado' %}">
+                    <i class="fa fa-cc"></i>Mi Información</a>
+                    
+            </li>
+        </ul>
+    </nav>
+</div>

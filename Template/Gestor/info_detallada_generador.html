@@ -1,0 +1,162 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	input {
+		text-align: center;
+	}
+</style>
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+    <div class="row">
+      <a href="{% url 'Ver_Info_Pro' %}">
+        <button id="atras" style="background-color: transparent;border: double;border-color: green;" class="btn btn-success"><-Atras</button> 
+      </a>
+    </div>
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-md-4">
+								<a href="{% url 'Ver_Info_Personal_Generador' empresa.pk %}"><button class="btn btn-primary">Ver Información de la Empresa</button></a>
+							</div>
+							<div class="col-md-8">
+								<h2>Detalle Operaciones</h2>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<table class = "table table-bordered" style="font-size: 15px;">
+		                    <thead>
+		                        <tr>
+		                            <th>Empresa</th>
+		                            <th>Rut</th>
+		                            <th>Toneladas Transportadas</th>
+                                <th>Fuentes de Información</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                    {% for i in informe %}
+		                        <tr id="tr-forms">
+		                            <td>{{i.Nombre}}</td>
+		                            <td>{{i.Rut}}</td>
+		                            <td>{{i.Toneladas}}</td>
+                                <td>{{i.Fuente}}</td>
+		                        </tr>
+		                    {% endfor %}
+		                    </tbody>
+		                </table> 
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+                    <div class="au-card chart-percent-card">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 tm-b-5">Toneladas Transportadas</h3>
+                            <div class="row no-gutters">
+                                <div class="col-xl-6">
+                                    <div class="chart-note-wrap">
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--green"></span>
+                                            <span>Empresas GiroLimpio</span>
+                                        </div>
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--red"></span>
+                                            <span>Empresas No GiroLimpio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="percent-chart">
+                                        <canvas id="percent-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+      <div class="col-md-6">
+        <div class="card" style="align-items: center;text-align: center;">
+          {% if empresa.Certificado == True %}
+            <img src="{% static '/images/logo/Giro_Logo.png' %}" alt="" style="text-align: center; width:300px;height:300px;">
+            <h3>El Generador de carga <label style="color:green;">Si</label> se encuentra Certificado en <label style="color: green;">GiroLimpio</label></h3>
+          {% else %}
+            <img src="{% static '/images/logo/equis.png' %}" alt="" style="text-align: center; width:300px;height:300px;">
+            <h3>El Generador de carga <label style="color: red;">No</label> se encuentra Certificado en <label style="color: green;">GiroLimpio</label></h3>
+          {% endif %}
+        </div>
+      </div>
+		</div>
+	</div>
+</div>	
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+
+    // Percent Chart
+    var ctx = document.getElementById("percent-chart");
+    if (ctx) {
+      ctx.height = 280;
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              label: "My First dataset",
+              data: ['{{porciento_no_giro}}','{{porciento_giro}}'],
+              backgroundColor: [
+                '#CA1212',
+                '#25B518'
+              ],
+              hoverBackgroundColor: [
+                '#CA1212',
+                '#25B518'
+              ],
+              borderWidth: [
+                0, 0
+              ],
+              hoverBorderColor: [
+                'transparent',
+                'transparent'
+              ]
+            }
+          ],
+          labels: [
+            'No GiroLimpio',
+            'GiroLimpio',
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          cutoutPercentage: 55,
+          animation: {
+            animateScale: false,
+            animateRotate: false
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            titleFontFamily: "Poppins",
+            xPadding: 15,
+            yPadding: 10,
+            caretPadding: 0,
+            bodyFontSize: 16
+          }
+        }
+      });
+    }
+</script>
+{% endblock JavaScript %}

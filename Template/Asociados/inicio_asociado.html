@@ -1,0 +1,25 @@
+{% extends "Partials/Asociado/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+.stroke {
+text-shadow: 2px 2px 1px #FFF,-2px 2px 1px #FFF,-2px -2px 1px #FFF, 2px -2px 1px #FFF;
+color:green;
+font-size: 60px;
+}
+</style>
+{% endblock Style %}
+{% block Content %}
+<div class="container">
+	<div class="row" style="padding-top: 300px;padding-left: 70px;">
+		<div class="col">
+			<h1 class="stroke">Bienvenido al programa GiroLimpio</h1>
+		</div>
+	</div>
+</div>
+{% endblock Content %}
+{% block JavaScript %}
+{% endblock JavaScript %}

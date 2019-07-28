@@ -1,0 +1,213 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+
+</style>
+<link rel="stylesheet" href="{% static 'vendor/picklist.css' %}">
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+		<div class="row justify-content-md-center">
+			<div class="col-md-9">
+				<div>
+					<a href="{% url 'Mensajeria' %}"><button class="btn btn-outline-success "><p style="color:black;"><--Atras</p></button></a>
+				</div>
+				<div class="card" style="background: rgba(255, 255, 255, 0.98);color:black; color:black;">
+					<div class="card-body">
+						<div>
+							<h2 style="text-align: center;">Mensajes</h2>
+						</div>
+						<div style="border-color: lightgrey;background-color: white">
+							
+							<div class="row">
+								<div class="col-md-2" style="text-align: center;">
+									<img src="{% static imagen_mensaje %}" alt="">
+									{{mensaje.Usuario}}
+								</div>
+								<div class="col-md-10">
+									<div class="col-md-12" style="background-color: lightgrey;">
+										<h5>{{mensaje.Fecha}}</h5>
+									</div>
+									<div class="col-md-12">
+										<h2>Mensaje:</h2>
+										<p>{{mensaje.Informacion}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<hr>
+						<div class="row">
+							<div class="col-md-3">
+								<h3>Respuestas</h3>
+							</div>
+							<div class="col-md-9" style="text-align: right;">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#Mensaje" >Responder</button>
+							</div>
+						</div>
+						{% for i in contacts %}
+						<div>
+							<div class="table-responsive table--no-card m-b-30">
+								<table class="table table-striped">
+									<tbody>
+										<tr>
+											<td style="background-color: #EBEFFB; width:200px;text-align: center;align-items: center;">
+												<img src="{% static i.1 %}" width="100" alt="">
+												<h3>{{i.0.Usuario}}</h3>
+												<p style="font-size:14px;color:gray;">{{i.0.Fecha}}</p>
+											</td>
+											<td style="width:750px;">
+
+												<span><p>{{i.0.Informacion}}</p></span>
+											</td>
+											{% if respuesta %}
+											<td>
+												<span><button class="btn btn-primary" data-toggle="modal" data-target="#Respuesta{{i.0.pk}}"> Responder </button></span>
+											</td>
+											{% endif %}
+										</tr>
+										{% if respuesta %}
+										<tr >
+											<td></td>
+											<td colspan="2" >
+												<div class="table-responsive table--no-card m-b-30">
+													<table class="table table-striped">
+														<tbody>
+															{% for y in i.2 %}
+																<tr >
+																	<td style="background-color: #EBEFFB; width:200px;text-align: center;align-items: center;">
+																		<img src="" width="100" alt="">
+																		<h3>{{y.0.Usuario}}</h3>
+																		<p style="font-size:14px;color:gray;">{{y.0.Fecha}}</p>
+																	</td>
+																	<td style="width:750px;">
+																		<p>{{y.0.Informacion}}</p>
+																		
+																	</td>
+																</tr>
+															{% endfor %}
+														</tbody>
+													</table>
+												</div>
+											</td>
+										</tr>
+										{% endif %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						{% endfor %}
+						<div class="row">
+					      <ul class="pagination">
+					        {% if contacts.has_previous %}
+					        <li class="page-item">
+					          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+					        </li>
+					        {% else %}
+					        <li class="page-item disabled">
+					          <a class="page-link">Anterior</a>
+					        </li>
+					        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+					        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+					        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+					        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+					        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+					          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+					          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+					          {% endif %} {% if contacts.has_next %}
+					          <li class="page-item">
+					            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+					          </li>
+					          {% else %}
+					          <li class="page-item disabled">
+					            <a class="page-link">Siguiente</a>
+					          </li>
+					          {% endif %}
+					      </ul>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="Mensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Enviar Mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      		<form action="{% url 'Foro' mensaje.pk %}"  method="POST">
+      			<input type="text" name="action" value="pregunta" hidden="True">
+			{% csrf_token %}
+
+            <div class="row form-group">
+			</div>
+
+            	<div class="col-md-12">
+					<label for=""><strong>Mensaje</strong></label>
+					<textarea class="form-control" rows="5" name="Respuesta" id="mensaje"></textarea>
+            	</div>
+            </div>
+            
+         	
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="submit" id="Enviar" class="btn btn-primary">Enviar</button>
+	      </div>
+	       </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% if respuesta %}
+{% for i in contacts %}
+<div class="modal fade bd-example-modal-lg" id="Respuesta{{i.0.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Enviar Mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      		<form action="{% url 'Respuesta_de_Respuesta' i.0.pk %}"  method="POST">
+      		<input type="text" name="action" value="respuesta" hidden="True">
+			{% csrf_token %}
+
+            <div class="row form-group">
+			</div>
+
+            	<div class="col-md-12">
+					<label for=""><strong>Mensaje</strong></label>
+					<textarea class="form-control" rows="5" name="Respuesta_Respuesta" id="Respuesta"></textarea>
+            	</div>
+            </div>
+            
+         	
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="submit" id="Enviar" class="btn btn-primary">Enviar</button>
+	      </div>
+	       </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock Content %}
+{% block JavaScript %}
+
+{% endblock JavaScript %}

@@ -1,0 +1,181 @@
+{% extends "Partials/Generador/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+    .index {
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        padding-bottom: 0;
+        -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+
+        width: 100%;
+        height: 100%;
+
+        background-image: -webkit-linear-gradient(top, #3f5efb 0%, #fc466b 100%);
+        background-image: -o-linear-gradient(top, #3f5efb 0%, #fc466b 100%);
+        background-image: linear-gradient(to top, #3f5efb 0%, #fc466b 100%);
+    }
+    .card i {
+        font-size: 60px;
+        color: #fff;
+    }
+</style>
+{% endblock Style %}
+{% block Content %}
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <div>
+                        <h1><strong>Bienvenido a Girolimpio</strong></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 30px;">
+                <div class="col-md-3">
+                    <div class="card index" style="text-align: center;color:white;padding-top: 30px;">
+                        <div >
+                            <i class="fas fa-building"></i>
+                            <span style="padding-left: 30px;font-size:50px;color:black"><strong>{{emp}}</strong></span>
+                        </div>
+                        <div>
+                            <span style="font-size:20px">Numero de Empresas Transportistas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card index" style="text-align: center;color:white;padding-top: 30px;">
+                        <div >
+                            <i class="fas fa-building"></i>
+                            <span style="padding-left: 30px;font-size:50px;color:black"><strong>{{emp_giro}}</strong></span>
+                        </div>
+                        <div>
+                            <span style="font-size:18px">Numero de Empresas Transportistas GiroLimpio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card index" style="text-align: center;color:white;padding-top: 30px;">
+                        <div >
+                            <i class="fas fa-truck"></i>
+                            <span style="padding-left: 30px;font-size:50px;color:black"><strong></strong></span>
+                        </div>
+                        <div>
+                            <span style="font-size:20px">Emisiones Asociadas a Carga Transportada GiroLimpio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card index" style="text-align: center;color:white;padding-top: 30px;">
+                        <div >
+                            <i class="fas fa-truck"></i>
+                            <span style="padding-left: 20px;font-size:50px;color:black"><strong>{{porciento_giro}}%</strong></span>
+                        </div>
+                        <div>
+                            <span style="font-size:20px">Porcentaje de Cargar Transportada GiroLimpio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="au-card chart-percent-card">
+                        <div class="au-card-inner">
+                            <h3 class="title-2 tm-b-5">Carga Transportada</h3>
+                            <div class="row no-gutters">
+                                <div class="col-xl-6">
+                                    <div class="chart-note-wrap">
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--green"></span>
+                                            <span>GiroLimpio</span>
+                                        </div>
+                                        <div class="chart-note mr-0 d-block">
+                                            <span class="dot dot--red"></span>
+                                            <span>No Girolimpio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="percent-chart">
+                                        <canvas id="percent-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+
+    // Percent Chart
+    var ctx = document.getElementById("percent-chart");
+    if (ctx) {
+      ctx.height = 280;
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              label: "My First dataset",
+              data: ['{{porciento_no_giro}}','{{porciento_giro}}'],
+              backgroundColor: [
+                '#CA1212',
+                '#25B518'
+              ],
+              hoverBackgroundColor: [
+                '#CA1212',
+                '#25B518'
+              ],
+              borderWidth: [
+                0, 0
+              ],
+              hoverBorderColor: [
+                'transparent',
+                'transparent'
+              ]
+            }
+          ],
+          labels: [
+            'No GiroLimpio',
+            'GiroLimpio',
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          cutoutPercentage: 55,
+          animation: {
+            animateScale: false,
+            animateRotate: false
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            intersect:false,
+            enable:false,
+            titleFontFamily: "Poppins",
+            mode:'point',
+            xPadding: 15,
+            yPadding: 10,
+            caretPadding: 0,
+            bodyFontSize: 16
+          }
+        }
+      });
+    }
+</script>
+{% endblock JavaScript %}

@@ -1,0 +1,229 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<!-- <style>
+	body{
+  background: #303030;
+}
+h1 {
+  color: #CA7218;
+  text-align: center;
+}
+
+/* Contenedor del puzzle*/
+#contenedorPuzzle {
+    margin: 20px auto;
+    width: 450px;
+    background: rgba(20,20,20,0.8);
+    box-shadow: 0px 0px 10px  2px #777;
+    color: #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+/* Puzzle */
+#contenedorPiezas{
+    background: #e7931a;
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin-left: 10px;
+    box-shadow: 0px 0px 10px  2px #d0eb6a;
+}
+
+#puzzle {
+    background: #d0eb6a;
+    width: 200px;
+    height: 200px;
+    float: right;
+    margin-right: 10px;
+    box-shadow: 0px 0px 10px  2px #e7931a;
+}
+.contenedorPieza {
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+#contenedorPuzzle img {
+    float: left;
+    padding: 1px;
+    width: 98px;
+    height: 98px;
+}
+</style> -->
+<style>
+	.contenedorPieza{
+		padding:30px;
+	}
+	
+	#contenedorPiezas{
+		padding: 30px;
+		border-color: black;
+		border:groove;
+	}
+</style>
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="row">
+						<div class="col-md">
+							<div id="columns">
+							  <div class="column" draggable="true"><header>A</header></div>
+							  <div class="column" draggable="true"><header>B</header></div>
+							  <div class="column" draggable="true"><header>C</header></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+					    <header>
+					        <h1> Un puzzle de cuatro piezas </h1>
+					    </header>
+
+					    <section id="contenedorPuzzle">
+					        <div id="contenedorPiezas" ondragenter="return enter(event)" ondragover="return over(event)" ondrop="return droping(event)">
+					        	<button id="pieza1" value="boton 1" class="btn btn-success" draggable="true" ondragstart="start(event)" ondragend="end(event)">boton 1</button>
+					        	<button id="pieza2" class="btn btn-outline-success" draggable="true" ondragstart="start(event)" ondragend="end(event)">boton 2</button>
+					        	<button id="pieza3" class="btn btn-success" draggable="true" ondragstart="start(event)" ondragend="end(event)">boton 3</button>
+					        	<button id="pieza4" class="btn btn-success" draggable="true" ondragstart="start(event)" ondragend="end(event)">boton 4</button>
+					        	<button id="pieza5" class="btn btn-success" draggable="true" ondragstart="start(event)" ondragend="end(event)">boton 5</button>
+					            
+					        </div>
+					      
+					    </section>
+					</div>
+					<br>
+					<br>
+					<div class="row">
+						<div class="col-md ">
+							<div class="table-responsive table--no-card m-b-30"  style="text-align: center;">
+								<table class = "table table-bordered">
+									
+									<tbody id="tabla">
+										<tr id="tr">
+											<td>
+												<section>
+													<div id="puzzle">
+											            <div class="contenedorPieza" id="1" ondragenter="return enter(event)" ondragover="return over(event)" ondrop="return drop(event)"></div>
+											        </div>  
+												</section>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+	/**
+* Función que se ejecuta al arrastrar el elemento. 
+**/
+function start(e) {
+    e.dataTransfer.effecAllowed = 'move'; // Define el efecto como mover (Es el por defecto)
+    e.dataTransfer.setData("Text", e.target.id); // Coje el elemento que se va a mover
+    e.target.style.opacity = '0.4'; 
+}
+
+/**
+* Función que se ejecuta se termina de arrastrar el elemento. 
+**/
+function end(e){
+    e.target.style.opacity = ''; // Restaura la opacidad del elemento           
+    e.dataTransfer.clearData("Data");           
+}
+
+/**
+* Función que se ejecuta cuando un elemento arrastrable entra en el elemento desde del que se llama. 
+**/
+function enter(e) {
+    return true;
+}
+
+/**
+* Función que se ejecuta cuando un elemento arrastrable esta sobre el elemento desde del que se llama. 
+* Devuelve false si el objeto se puede soltar en ese elemento y true en caso contrario.
+**/
+function over(e) {
+    if ((e.target.className == "contenedorPieza") || (e.target.id == "contenedorPiezas"))
+        return false;
+    else
+    return true;
+}
+    
+/**
+* Función que se ejecuta cuando un elemento arrastrable se suelta sobre el elemento desde del que se llama. 
+**/
+var id = 1;
+function drop(e){
+    e.preventDefault(); // Evita que se ejecute la accion por defecto del elemento soltado.
+    var cadena = ("#").concat(e.target.id," button");
+    var aux = 0;
+    $(cadena).each(function(index,element){
+    	aux += 1;
+    	if(aux > 1){
+    		break;
+    	}
+ 	});
+
+    var elementoArrastrado = e.dataTransfer.getData("Text");
+    e.target.appendChild(document.getElementById(elementoArrastrado));
+    
+    
+    var tr = $("#tr");
+    var td = $("<td/>");
+    var valid = ("#").concat(id, "button");
+    aux = 0;
+    
+    // w
+    id += 1;
+    var div = $(("<div class='contenedorPieza' id="+ String(id) +" ondragenter='return enter(event)' ondragover='return over(event)' ondrop='return drop(event)'></div>"));
+    td.append(div)
+    tr.append(td);
+}
+
+function droping(e){
+    e.preventDefault(); // Evita que se ejecute la accion por defecto del elemento soltado.
+    var elementoArrastrado = e.dataTransfer.getData("Text");
+    e.target.appendChild(document.getElementById(elementoArrastrado));
+    cont -= 1;
+    
+
+    // var tr = $("#tr");
+    // var td = $("<td/>");
+    // td.append(document.getElementById(elementoArrastrado));
+    // tr.append(td);
+}
+
+
+/**
+* Muestra un mensaje de advertencia si el navegador no soporta Drag & Drop. (En Windows no lo soportan ni IE ni Safari)
+**/
+function comprobarnavegador() {
+    if( 
+        (navigator.userAgent.toLowerCase().indexOf('msie ') > -1) || 
+        ((navigator.userAgent.toLowerCase().indexOf('safari') > -1) && (navigator.userAgent.toLowerCase().indexOf('chrome') == -1)))
+    {
+        alert("Tu navegador no soporta correctamente las funciones Drag & Drop de HTML5. Prueba con otro navegador.");
+    }
+
+}
+</script>
+{% endblock JavaScript %}

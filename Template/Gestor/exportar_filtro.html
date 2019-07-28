@@ -1,0 +1,446 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+.vertical > *:not(:first-child) {
+  border-left: solid gray 2px;
+}
+</style>
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30" > 
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="text-align: center;">
+						<h2>Filtros</h1>
+					</div>
+					<div class="card-body">
+					<form action="{% url 'Exportar_Filtro' %}" class="form-horizontal" method="POST" >
+					{% csrf_token %}
+						<div class="row">
+							
+						</div>
+						<div class="row">
+							<!--  -->
+							<div class="col-md-6" style="border-right:0.1px solid; border-color: #D0D0D0;">
+								<div class="col-md-12" style="text-align: center;">
+									<h3>Tipo de Equipo</h3>
+								</div>
+								<br>
+								<hr>	
+								<div class="row form-group">
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Pl">
+										  <span class="checkmark"></span>
+										  Plano
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Es">
+										  <span class="checkmark"></span>
+										  Estanque
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Gr">
+										  <span class="checkmark"></span>
+										  Granel
+										</label>
+									</div>
+									
+								</div>
+								<br>
+								<div class="row form-group">
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Mi">
+										  <span class="checkmark"></span>
+										  Mixer
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Ot">
+										  <span class="checkmark"></span>
+										  Otros
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Tr">
+										  <span class="checkmark"></span>
+										  Transporte de Vehículos
+										</label>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Co" value="off">
+										  <span class="checkmark"></span>
+										  Contenedor o cortina
+										</label>
+									</div>
+
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Re">
+										  <span class="checkmark"></span>
+										  Refrigerador
+										</label>
+									</div>
+								</div>
+								<hr>
+							</div>
+							<div class="col-md-6">
+								<div class="col-md-12" style="text-align: center;">
+									<h3>Tipo de Operación</h3>
+								</div>
+								<br> 
+								<hr>
+								<div class="row form-group">
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Completa">
+										  <span class="checkmark"></span>
+										  Carga Completa
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Parcial">
+										  <span class="checkmark"></span>
+										  Carga Parcial
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Contenedores">
+										  <span class="checkmark"></span>
+										  Carga Contenedores
+										</label>
+									</div>
+								</div>
+								<br>
+								<div class="row form-group">
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Mixto">
+										  <span class="checkmark"></span>
+										  Mixto
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Paqueteria">
+										  <span class="checkmark"></span>
+										  Paquetería
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+										<label class="container">
+										  <input type="checkbox" name="Otro">
+										  <span class="checkmark"></span>
+										  Otro
+										</label>
+									</div>
+								</div>
+								<br>
+								<br>
+								<hr>
+							</div>
+						</div>
+						<br>
+							<div class="row form-group">
+								<div class="col-md-12" style="text-align: center;">
+									<h3>Industria</h3>
+								</div>
+								<br>
+								<br>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Agr">
+											<span class="checkmark">
+												
+											</span>
+												Agricultura
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Comi">
+											<span class="checkmark">
+											</span>
+												Comercio
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Min">
+											<span class="checkmark">
+											</span>
+												Minería
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Ali">
+											<span class="checkmark">
+											</span>
+												Alimentación
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Coni">
+											<span class="checkmark">
+											</span>
+												Construcción
+										</label>
+									</div>
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Mad">
+											<span class="checkmark">
+											</span>
+												Madera
+										</label>
+									</div>
+								
+									<div class="col-md-12 col-sm-12 col-12 col-lg-2">
+										<label class="container">
+											<input type="checkbox" name="Otri">
+											<span class="checkmark">
+											</span>
+												Otros
+										</label>
+									</div>
+							</div>
+							<hr>
+							<br>
+						<div class="row">
+							<div class="col-md-12" style="text-align: center;">
+								<h3>Zonas</h3>
+							</div>
+							
+								<div class="col-md-12 col-sm-12 col-12 col-lg-3" align="">
+									<label class="container">
+									  <input type="checkbox" name="I">
+									  <span class="checkmark"></span>
+									  Zona Norte
+									</label>
+								</div>
+								<div class="col-md-12 col-sm-12 col-12 col-lg-3" align="">
+									<label class="container">
+									  <input type="checkbox" name="II">
+									  <span class="checkmark"></span>
+									  Zona Centro
+									</label>
+								</div>
+								<div class="col-md-12 col-sm-12 col-12 col-lg-3" align="">
+									<label class="container">
+									  <input type="checkbox" name="III">
+									  <span class="checkmark"></span>
+									  Zona Sur
+									</label>
+								</div>
+							
+								<div class="col-md-12 col-sm-12 col-12 col-lg-3" align="">
+									<label class="container">
+									  <input type="checkbox" name="IV">
+									  <span class="checkmark"></span>
+									  Zona Extremo Sur
+									</label>
+								</div>
+							</div>
+							<hr>
+							<br>
+				        	<div class="row">
+				        			<div class="col-md-12">
+				        				<h3>Años</h3>
+				        			</div>
+						          	
+						          	<div class="col-md-4" >
+						          		<span id=Region>
+
+								        </span>
+										<span id="Region2">
+											<input type="number" class="form-control" id="Ano" name="Ano">
+										</span>	
+						          	</div>
+									<div class="col-md-4" >
+										<button class="btn btn-success" type="button" id="btn_region" value="">+</button>
+										<button class="btn btn-danger" type="button" id="btn_region_del" style="display: none" >-</button>
+									</div>
+				        	</div>
+						</form>
+				        
+						<div class="row">
+							<div class="col-md-12" style="text-align: right;">
+								<button id="enviar" class="btn btn-primary">Exportar</button>
+							</div>
+						</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+$(document).ready(function(){
+function getCookie(name){
+      var cookieValue = null;
+      if (document.cookie && document.cookie != ''){
+          var cookies = document.cookie.split(';');
+          for(var i = 0; i < cookies.length; i++){
+              var cookie = jQuery.trim(cookies[i]);
+
+              if(cookie.substring(0,name.length + 1) == (name + '=')){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue
+    }
+var cont = 0;
+var clone = $("#Ano").clone();
+$("#btn_region").on('click', function(event) {
+		cont ++;
+		var clone_Ano = $('<input/>');
+		clone_Ano.attr({
+			'id': 'Ano',
+			'name': 'Ano',
+			'class': 'form-control',
+			'value': '0',
+			'type' : 'number',
+			'style': '',
+		});
+		$("#Region").prepend(clone_Ano);
+		$("#btn_region_del").show();
+
+	});
+	$("#btn_region_del").on('click', function(event) {
+		cont --;
+		$("#Ano").remove();
+		if(cont == 0){
+			$("#btn_region_del").hide();
+		}
+
+	});
+$("#enviar").on('click', function(e) {
+	var check = [];
+	if($("input[name^='Pl']").prop("checked")){
+		check.push("Pl");
+	}
+	if($("input[name^='Es']").prop("checked")){
+		check.push("Es");
+	}
+	if($("input[name^='Gr']").prop("checked")){
+		check.push("Gr");
+	}
+	if($("input[name^='Mi']").prop("checked")){
+		check.push("Mi");
+	}
+	if($("input[name^='Ot']").prop("checked")){
+		check.push("Ot");
+	}
+	if($("input[name^='Tr']").prop("checked")){
+		check.push("Tr");
+	}
+	if($("input[name^='Co']").prop("checked")){
+		check.push("Co");
+	}
+	if($("input[name^='Re']").prop("checked")){
+		check.push("Re");
+	}
+	if($("input[name^='Agr']").prop("checked")){
+		check.push("Agr");
+	}
+	if($("input[name^='Comi']").prop("checked")){
+		check.push("Com");
+	}
+	if($("input[name^='Min']").prop("checked")){
+		check.push("Min");
+	}
+	if($("input[name^='Ali']").prop("checked")){
+		check.push("Ali");
+	}
+	if($("input[name^='Coni']").prop("checked")){
+		check.push("Con");
+	}
+	if($("input[name^='Mad']").prop("checked")){
+		check.push("Mad");
+	}
+	if($("input[name^='Otri']").prop("checked")){
+		check.push("Otr");
+	}
+	if($("input[name^='Completa']").prop("checked")){
+		check.push("Completa");
+	}
+	if($("input[name^='Parcial']").prop("checked")){
+		check.push("Parcial");
+	}
+	if($("input[name^='Contenedores']").prop("checked")){
+		check.push("Contenedores");
+	}
+	if($("input[name^='Mixto']").prop("checked")){
+		check.push("Mixto");
+	}
+	if($("input[name^='Paqueteria']").prop("checked")){
+		check.push("Paqueteria");
+	}
+	if($("input[name^='Otro']").prop("checked")){
+		check.push("Otro");
+	}
+	if($("input[name^='I']").prop("checked")){
+		check.push("I");
+	}
+	if($("input[name^='II']").prop("checked")){
+		check.push("II");
+	}
+	if($("input[name^='III']").prop("checked")){
+		check.push("III");
+	}
+	if($("input[name^='IV']").prop("checked")){
+		check.push("IV");
+	}
+	var anos = $( "input[name^='Ano']" );
+	var ano = []
+	for (var i = 0; i < anos.length; i++) {
+		ano.push(anos[i].value);
+	}
+	$.ajax({
+          url:'{% url "Exportar_Filtro" %}',
+          type: "POST",
+          data: {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+            'ano' : String(ano),
+            'check' : String(check)
+          },
+          success: function() {
+		    e.preventDefault();  //stop the browser from following
+		    window.location.href = "{% static 'Filtros/Filtro.xlsx' %}";
+		}                                          
+        });
+
+});
+});
+</script>
+{% endblock JavaScript %}

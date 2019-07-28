@@ -1,0 +1,128 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="text-align: center;">
+						<h2>Usuarios</h2>
+					</div>
+					<div style="text-align: right;padding-right:20px;">
+						<button data-toggle="modal" data-target="#ModalPerfil" class="btn btn-primary">Agregar Nuevo Usuario</button>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive table--no-card m-b-30">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Accion</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in contacts %}
+									<tr>
+										<td>{{i.username}}</td>
+										<td>
+											<a href=""><i style="color: red" class="fas fa-trash-alt"></i></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+					      <ul class="pagination">
+					        {% if contacts.has_previous %}
+					        <li class="page-item">
+					          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+					        </li>
+					        {% else %}
+					        <li class="page-item disabled">
+					          <a class="page-link">Anterior</a>
+					        </li>
+					        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+					        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+					        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+					        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+					        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+					          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+					          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+					          {% endif %} {% if contacts.has_next %}
+					          <li class="page-item">
+					            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+					          </li>
+					          {% else %}
+					          <li class="page-item disabled">
+					            <a class="page-link">Siguiente</a>
+					          </li>
+					          {% endif %}
+					      </ul>
+					    </div>
+					</div>
+					{% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissable" {% endif %}>
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{message}}.
+                    </div>
+                {% endfor %}
+                {% endif %}
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Agregar un Perfil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form action="{% url 'Gestionar_Perfil' %}" class="form-horizontal" method="POST" >
+			{% csrf_token %}
+			<div>
+				<h3>Usuario</h3>
+				{{form.username}}
+			</div>
+			<div>
+				<h3>Contraseña</h3>
+				{{form.password1}}
+			</div>
+			<div>
+				<h3>Confirme Contraseña</h3>
+				{{form.password2}}
+
+			</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+
+</script>
+{% endblock JavaScript %}

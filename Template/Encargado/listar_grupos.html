@@ -1,0 +1,85 @@
+
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+		<div align="right">
+			<a href="{% url 'Agregar_Grupo' %}"><button type="button" class="btn btn-primary">Agregar Grupo</button></a>
+		</div>
+		<div class="row">
+		
+		{% if Grupo.count > 0 %}	
+		{% for i in Grupo %}
+			<div class="col-md-12 col-lg-6 col-xl-4">
+				<div class="card" style="text-align: center; align-items: center; border-color: green;">
+				  <img class="card-img-top" src="" style="width: 200px; height: 200px;">
+				  <div>
+				  	<a href="" data-toggle="modal" data-target="#EditContact1" ><i style="color:green" class="fas fa-edit"></i> </a>
+					<i data-toggle="modal{{i.pk}}" data-target="#modals{{i.pk}}" style="color: red" class="fas fa-trash-alt"></i>
+				  </div>
+				  <div class="card-body">
+				    <h5 class="card-title">Flota {{i.Nombre}}</h5>
+				    <p class="card-text">Descripción de la Flota</p>
+				    <div class="row">
+				    	
+						<div class="col-lg-6 col-md-12">
+					    	<a href="" class="btn btn-success">Camiones Rígidos</a>
+							
+						</div>
+					 	<div class="col-md-12 col-lg-6" style="padding-left: 2px;">
+					    	<a href="" class="btn btn-success" style="">Tracto Camiones</a>
+					 	</div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		{% endfor %}
+		{% else %}
+		<div align="center">
+			<h1>No existe un grupo</h1>
+		</div>
+		{% endif %}
+		</div>
+	</div>
+</div>
+{% if Flota.count > 0 %}
+{% for i in Flota %}
+<div class="modal fade" id="modals{{i.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" >
+  <div class="modal-dialog modal-dialog-centered" role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Aviso</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3 style="color:red;">¿Está seguro de eliminar esta flota?</h3>
+        <p style="font-size:18px;">Una vez eliminada no podrá volver atrás</p>
+      </div>
+      <div class="modal-footer">
+
+        <a href=""><button type="submit" class="btn btn-danger" data-dismiss="modal">Aceptar</button></a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+	$(".fa-trash-alt").on('click', function(event) {
+		$(($(this).attr('data-target'))).modal();
+	});
+</script>
+{% endblock JavaScript %}

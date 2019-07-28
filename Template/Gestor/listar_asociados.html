@@ -1,0 +1,79 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="text-align: center;">
+						<h2>Empresas</h2>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive table--no-card m-b-30">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Usuario</th>
+										<th>Nombre</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in contacts %}
+									<tr >
+										<td>{{i.Usuario.username}}</td>
+										<td>{{i.Nombre_Empresa}}</td>
+										<td><a href="{% url 'Ver_Info_Detallada_Asociados' i.pk %}"><button class="btn btn-primary">Ver Más</button></a></td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+
+						<div class="row">
+					      <ul class="pagination">
+					        {% if contacts.has_previous %}
+					        <li class="page-item">
+					          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+					        </li>
+					        {% else %}
+					        <li class="page-item disabled">
+					          <a class="page-link">Anterior</a>
+					        </li>
+					        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+					        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+					        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+					        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+					        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+					          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+					          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+					          {% endif %} {% if contacts.has_next %}
+					          <li class="page-item">
+					            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+					          </li>
+					          {% else %}
+					          <li class="page-item disabled">
+					            <a class="page-link">Siguiente</a>
+					          </li>
+					          {% endif %}
+					      </ul>
+					    </div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+{% endblock JavaScript %}

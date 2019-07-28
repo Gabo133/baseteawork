@@ -1,0 +1,389 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="CodePixar">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Agency</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,500,600" rel="stylesheet">
+		<!--
+		CSS
+		============================================= -->
+		<link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- {% static 'vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+    <style type="text/css">
+	  button {
+	  	height: 120px;
+	  	width:120px;
+	  }
+	</style>
+    </head>
+	<body>
+		<div class="container">
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿La aplicación me parece útil?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado1"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad1"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal1"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good1"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre1"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				  
+			</div>
+			<br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿La aplicación me facilita el trabajo?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado2"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad2"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal2"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good2"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre2"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				  
+			</div>
+			<br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿La aplicación es fácil de usar?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado3"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad3"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal3"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good3"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre3"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+			<br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+					
+				<div class="col-md-12">
+					<h2>¿La aplicación es bonita?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado4"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad4"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal4"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good4"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre4"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+			<br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿Entendí la aplicación?</h2>
+				</div>
+
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado5"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad5"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal5"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good5"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre5"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				<br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				
+				<div class="col-md-12">
+					<h2>¿Me complicó usar la aplicación?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado6"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad6"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal6"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good6"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre6"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				  
+			</div>
+				<br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+					
+				<div class="col-md-12">
+					<h2>¿Le gustó la aplicación?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado7"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad7"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal7"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good7"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre7"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				  <br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿Usaría de nuevo la aplicación?</h2>
+				</div>
+
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado8"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad8"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal8"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good8"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre8"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				 <br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿Es simple de usar la aplicación?</h2>
+				</div>
+					
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado9"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad9"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal9"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good9"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre9"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				 <br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿Están bien ubicadas las figuras?</h2>
+				</div>
+					
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado10"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad10"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal10"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good10"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre10"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				 <br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿Recomendaría esta aplicación?</h2>
+				</div>
+
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado11"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad11"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal11"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good11"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre11"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				 <br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿La aplicación es agradable?</h2>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado12"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad12"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal12"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good12"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre12"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				  <br>
+				 <br>
+				 <br>
+			<div class="row " style="align-items: center;text-align: center;">
+				<div class="col-md-12">
+					<h2>¿Estoy satisfecho con la aplicación?</h2>
+				</div>
+									
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="enojado13"><img src="{% static 'enojado.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_bad13"><img src="{% static 'medio_bad.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="normal13"><img src="{% static 'normal.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="medio_good13"><img src="{% static 'medio_good.png' %}" style="height: 100px;width:100px"></button>
+				</div>
+				<div class="col-md-2">
+					<button onclick=cambio(this) id="alegre13"><img src="{% static 'alegre.jfif' %}" style="height: 100px;width:100px"></button>
+				</div>
+			</div>
+				 <br>
+				 <br>
+				 <br>
+		</div>
+	</body>
+	<script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
+    <!-- Bootstrap JS-->
+    <script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
+    <!--vendor JS       -->
+    <script src="{% static 'vendor/slick/slick.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/wow/wow.min.js' %}"></script>
+    <script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
+    </script>
+    <script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
+    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/chartjs/Chart.min.js' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js' %}">
+    </script>
+    <script>
+    	var lista = [];
+    	function cambio(t){
+    		t.style.background='#a56d5d';
+    		lista.push(t.id);
+    	}
+    </script>
+</html>

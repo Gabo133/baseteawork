@@ -1,0 +1,86 @@
+
+<div class="header-mobile__bar">
+    <div class="container-fluid">
+        <div class="header-mobile-inner">
+            <a class="logo" >
+                <img src="" alt="CoolAdmin" />
+            </a>
+            <button class="hamburger hamburger--slider" type="button">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
+<nav class="navbar-mobile">
+    <div class="container-fluid">
+        <ul class="navbar-mobile__list list-unstyled">
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="{% url 'Index' %}">
+                    <i class="fa fa-cc"></i>Inicio</a>
+
+                    
+            </li>
+            <li class=" has-sub" id="bord">
+                <a class="js-arrow" href="#">
+                    <i class="fa fa-cc"></i>Gestionar Perfiles</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{% url 'Gestionar_Perfil' %}">Transportistas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Gestionar_Perfil_Generador' %}">Generadores de Carga</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="#">
+                    <i class="fas fa-copy"></i>Ver Información</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{% url 'Ver_Info_Empresa' %}">Transportistas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Ver_Info_Pro' %}">Generadores de Carga</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="bord">
+                <a class="js-arrow" href="#">
+                    <i class="fas fa-desktop"></i>Configuración</a>
+
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="{% url 'Configuracion' %}">Transportistas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'Configuracion_Generador' %}">Generadores de Carga</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub" id="bord">
+                <a href="#" class="js-arrow"><i class="fas fa-desktop"></i> Exportar</a>
+                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                    <li>
+                        <a href="#" class="js-arrow"><i class="fas fa-desktop"></i>Transportistas</a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a href="{% url 'Exportar_Empresa' %}"><i class="fas fa-desktop"></i> Por Transportistas</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'Exportar_Filtro' %}"><i class="fas fa-desktop"></i> Filtrar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'Exportar_Generador' %}"><i class="fas fa-desktop"></i> Por Generador de carga</a>
+                        
+                    </li>
+                    
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

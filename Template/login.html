@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+   <!--Made with love by Mutiullah Samim -->
+   
+    <link href="{% static 'css/font-face.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}" rel="stylesheet" media="all">
+
+    <!-- {% static 'vendor CSS-->
+    <link href="{% static 'vendor/animsition/animsition.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/wow/animate.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/slick/slick.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}" rel="stylesheet" media="all">
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        html,body{
+        background-image: url("{% static 'images/calido.jfif' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        font-family: 'Numans', sans-serif;
+        font-size: 16px;
+        }
+
+    </style>
+</head>
+<body style="height:320px;">
+<div class="container">
+    <div class="d-flex justify-content-center "style="padding-top: 100px;">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <h3>TeaWorkTools</h3>
+            </div>
+            <div class="card-body" >
+                {% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }} alert alert-danger alert-dismissable" {% endif %}>
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{message}}.
+                    </div>
+                {% endfor %}
+                {% endif %}
+                <form role="form" method="post" action="{% url 'loggin' %}"  >
+                    {% csrf_token %}
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Usuario" name="username">
+                        
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Contraseña" name="password">
+                    </div>
+                    <div class="form-group" style="padding-right: 35%;">
+                        <input  type="submit" value="Login" class="btn float-right login_btn">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

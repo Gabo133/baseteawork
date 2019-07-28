@@ -1,0 +1,223 @@
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30" > 
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="background-color: rgb(82,183,78) "> 
+					  	<div  class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+							<button class="nav-item nav-link" id="nav-Uni-tab" data-toggle="tab" href="#nav-Uni" role="tab" aria-controls="nav-Uni" aria-selected="true" style="color:rgb(85,85,89); background-color: #999090;" disabled>Tracto Camiones</button>
+
+					  		<a class="nav-item nav-link active" id="nav-Uni-To" data-toggle="tab" href="#nav-Uni-To" role="tab" aria-controls="nav-Uni-To" aria-selected="true" style="color:rgb(85,85,89);" >Tonelaje</a>
+					  	</div>
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="nav-tabContent">
+							<div class="tab-pane fade show active" id="nav-Uni-To" role="tabpanel" aria-labelledby="nav-Uni-To-tab">
+								<div class="row">
+									
+								<div class="col-md-11">
+									<div class="table-responsive table--no-card m-b-30"  style="text-align: center;">
+										
+										<table class = "table table-bordered" style="font-size: 12px;">
+											<thead>
+												<tr>
+													
+													<th>Año</th>
+													<th>Tecnología</th>
+													<th>Peso Bruto Vehicular<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="boton de ayuda" class="fas fa-question-circle"></i></th>
+													<th>Numero de Camiones</th>
+													<th>Kilometros Anuales</th>
+												</tr>
+											</thead>
+											<tbody id="Region">
+												{% if largo > 0 %}
+													{% for i in unitarios %}
+												<tr id="tr-form">
+													<td><input id="{{i.1.pk}}" class="Ano1 origin" value="{{i.1.Ano_Camion}}" type="number" style="width: 100%;text-align:center;"></td>
+													<td>{{ i.0.Tecnologia }}</td>
+													<td>{{ i.0.Masa }}</td>
+													<td><input id="Numero" class="Numero1" value="{{i.1.Numero_Camiones}}" type="number" style="width: 100%;text-align:center;"></td>
+													<td><input id="Kilometros" class="Kilometros1" value="{{i.1.Kilometros_Anueales}}" type="number" style="width: 100%;text-align:center;"></td>
+												</tr>
+
+													{% endfor %}
+												{% else %}
+													<tr id="tr-forms">
+														
+														<td><input id="Ano" class="Ano1" value="0" type="number" style="width: 100%;text-align:center;"></td>
+														<td>{{ TractoCamionForm.Tecnologia }}</td>
+														<td>{{ TractoCamionForm.Masa }}</td>
+														<td><input id="Numero" class="Numero1" value="0" type="number" style="width: 100%;text-align:center;"></td>
+														<td><input id="Kilometros" class="Kilometros1" value="0" type="number" style="width: 100%;text-align:center;"></td>
+													</tr>
+												{% endif %}
+													
+													
+												
+
+											</tbody>
+										</table>	
+									</div>
+								</div>
+									<div class="col-md-1" style="padding-top: 35px;">
+										<button class="btn btn-success" type="button" id="btn_region" value="">+</button>
+										<button class="btn btn-danger" type="button" id="btn_region_del" style="display: none" >-</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									{% for i in flot %}
+									<a href="{% url 'TractoCamiones' i.pk %}">
+										<button id="atras" class="btn btn-danger">Atras</button>	
+									
+									</a>
+									{% endfor %}
+								</div>
+								<div class="col-md-6" 	align="right">
+									<button id="enviar_info" class="btn btn-success">Guardar</button>
+								</div>
+
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+$(document).ready(function() {
+function getCookie(name){
+  var cookieValue = null;
+  if (document.cookie && document.cookie != ''){
+      var cookies = document.cookie.split(';');
+      for(var i = 0; i < cookies.length; i++){
+          var cookie = jQuery.trim(cookies[i]);
+
+          if(cookie.substring(0,name.length + 1) == (name + '=')){
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue
+}
+var cont = 0
+{% for i in unitarios %}
+	cont ++;
+{% endfor %}
+if(cont > 0){
+	cont --;
+	$("#btn_region_del").show();
+}
+$("#btn_region").on('click', function(event) {
+	cont ++;
+	var clone_Numero = $("#Numero").clone();
+	var clone_Kilometros = $("#Kilometros").clone();
+	var clone_Masa = $("#Masa").clone();
+	var clone_Tecnologia = $("#Tecnologia").clone();
+	var clone_Ano = $('<input/>');
+	clone_Ano.attr({
+		'id': 'Ano',
+		'class': 'Ano1',
+		'value': '0',
+		'style': 'width: 100%;text-align:center;',
+	});
+	clone_Numero.attr('class','Numero1');
+	clone_Numero.attr('value','0');
+	clone_Kilometros.attr('class','Kilometros1 ');
+	clone_Kilometros.attr('value','0');
+	clone_Masa.attr('class','Masa1 form-control');
+	clone_Tecnologia.attr('class','Tecnologia1 form-control');
+	var tr = $('<tr/>', {
+    'id'    : 'tr-form',
+	});
+
+	var td1 = $('<td/>');
+	var td2 = $('<td/>');
+	var td3 = $('<td/>');
+	var td4 = $('<td/>');
+	var td5 = $('<td/>');
+
+	td1.append(clone_Ano);
+	td2.append(clone_Numero);
+	td3.append(clone_Kilometros);
+	td4.append(clone_Masa);
+	td5.append(clone_Tecnologia);
+
+	tr.append(td1);
+	tr.append(td5);
+	tr.append(td4);
+	tr.append(td2);
+	tr.append(td3);
+	$("#Region").prepend(tr);
+	$("#btn_region_del").show();
+});
+$("#btn_region_del").on('click', function(event) {
+	cont --;
+	$("#tr-form").remove();
+	if(cont == 0){
+		$("#btn_region_del").hide();
+	}
+});
+$("#enviar_info").on('click', function() {
+	var $divm = $(".Masa1").toArray();
+	var $divn = $(".Numero1").toArray();
+	var $divk = $(".Kilometros1").toArray();
+	var $divt = $(".Tecnologia1").toArray();
+	var $diva = $(".Ano1").toArray();
+
+	var lista_Ano = [];
+	var lista_Numero = [];
+	var lista_Kilometros = [];
+	var lista_Masa = [];
+	var lista_Tecnologia = [];
+	var i;
+	for (var i = 0; i < $divm.length; i++) {
+		lista_Ano.push($diva[i].value);
+		lista_Numero.push($divn[i].value);
+		lista_Kilometros.push($divk[i].value);
+		lista_Masa.push($divm[i].value);
+		lista_Tecnologia.push($divt[i].value);  
+	}
+	{% for i in flot %}
+	$.ajax({
+          url:'{% url "TonTractoCamion" i.pk %}',
+          type: "POST",
+          data: {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+            'lista_Ano':String(lista_Ano),
+            'lista_Numero':String(lista_Numero),
+            'lista_Kilometros':String(lista_Kilometros),
+            'lista_Masa':String(lista_Masa),
+            'lista_Tecnologia':String(lista_Tecnologia),
+          },
+          success: function(){
+          	window.location.replace("{% url 'AdminFlota' %}")
+          }                                            
+        });
+	{% endfor %}
+
+
+});
+$(function () {
+	  $('[data-toggle="popover"]').popover()
+	})
+});
+
+</script>
+{% endblock JavaScript %}

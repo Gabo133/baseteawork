@@ -1,0 +1,515 @@
+
+{% extends "Partials/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+   .container {
+  display: block;
+  position: relative;
+  padding-left: 50px;
+  margin-bottom: 0px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: relative;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+
+  position: relative;
+  padding-left: 25px;
+  padding-bottom: 0px; 
+  padding-right: 0px;
+  margin-right: 10px;
+  padding-top: 0px;
+  margin-bottom: 10px;
+  top: 3px;
+  left: 0px;
+  bottom: 0px;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 10px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+{% endblock Style %}
+{% block Content %}
+
+<div class="section__content section__content--p30" > 
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					
+					<div class="card-header" style="background-color: rgb(82,183,78) "> 
+						
+					  	<div  class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+					  		{% if nav == 1 %}
+								<a class="nav-item nav-link active" id="nav-Datos-tab" data-toggle="tab" href="#nav-Datos" role="tab" aria-controls="nav-Datos" aria-selected="true" style="color:rgb(85,85,89)">Datos</a>					  		
+							{% else %}
+								<a class="nav-item nav-link " id="nav-Datos-tab" data-toggle="tab" href="#nav-Datos" role="tab" aria-controls="nav-Datos" aria-selected="true" style="color:rgb(85,85,89)">Datos</a>					  		
+							{% endif %}{% if nav == 2%}
+								<a class="nav-item nav-link active" id="nav-Operaciones-tab" data-toggle="tab" href="#nav-Operaciones" role="tab" aria-controls="nav-Operaciones" aria-selected="true" style="color:rgb(85,85,89)">Operaciones</a>
+						    {% else %}
+								<a class="nav-item nav-link" id="nav-Operaciones-tab" data-toggle="tab"  href="#nav-Operaciones" role="tab" aria-controls="nav-Operaciones" aria-selected="true" style="color:rgb(85,85,89)">Operaciones</a>
+						    {% endif %}{% if nav == 3%}
+								<a class="nav-item nav-link active" id="nav-Operaciones-tab" data-toggle="tab" href="#nav-Equipo" role="tab" aria-controls="nav-Operaciones" aria-selected="true" style="color:rgb(85,85,89)">Equipos</a>
+						    {% else %}
+								<a class="nav-item nav-link" id="nav-Equipo-tab" data-toggle="tab"  href="#nav-Equipo" role="tab" aria-controls="nav-Equipo" aria-selected="true" style="color:rgb(85,85,89)">Equipos</a>
+						    {% endif %}{% if nav == 4%}
+								<a class="nav-item nav-link active" id="nav-Industria-tab" data-toggle="tab" href="#nav-Industria" role="tab" aria-controls="nav-Industria" aria-selected="true" style="color:rgb(85,85,89)">Industria</a>
+						    {% else %}
+								<a class="nav-item nav-link" id="nav-Industria-tab" data-toggle="tab"  href="#nav-Industria" role="tab" aria-controls="nav-Industria" aria-selected="true" style="color:rgb(85,85,89)">Industria</a>
+						    {% endif %}
+					  	</div>
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="nav-tabContent">
+							{% if nav == 1 %}
+							<div class="tab-pane fade show active" id="nav-Datos" role="tabpanel" aria-labelledby="nav-Datos-tab">
+							{% else %}
+							<div class="tab-pane fade show" id="nav-Datos" role="tabpanel" aria-labelledby="nav-Datos-tab">
+							{% endif %}
+								<form action="{% url 'EditFlota' flota.pk %}" class="form-horizontal" method="POST" >
+									{% csrf_token %}
+									<input type="text" name="action" value="FlotaInfo" hidden>
+									<h1 class="text-center title-2">Datos</h1>
+									<div class="row form-group">
+							           	<div class="col-md-12">
+											<label for=""><strong>Nombre de la Flota</strong></label>
+											<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i>
+											{{ FlotaInfo.Nombre }}
+							          	</div>
+							        </div>
+							        
+							        <div class="form-group">
+
+										<div class="row">
+								          	<div class="col-md-8" >
+								          		<label for=""><strong>Zona</strong><i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i></label>
+								          		<span id=Region>
+								          			
+								          		</span>
+												{% for i in RegionForm %}
+												<span id="Region2">
+												
+													{{ i.Region }}
+												</span>	
+												{% endfor %}
+								          	</div>
+											<div class="col-md-4" style="padding-top: 34px;">
+												<button class="btn btn-success" type="button" id="btn_region" value="">+</button>
+												<button class="btn btn-danger" type="button" id="btn_region_del" style="display: none" >-</button>
+											</div>
+							        	</div>
+							        </div>
+							        <div align="right">
+											<button type="button" id="siguiente" class="btn btn-primary">Siguiente</button>
+									</div>
+							</div>
+							
+							
+							{% if nav == 2 %}
+							<div class="tab-pane fade show active" id="nav-Operaciones" role="tabpanel" aria-labelledby="nav-Operaciones-tab">
+							{% else %}
+							<div class="tab-pane fade show" id="nav-Operaciones" role="tabpanel" aria-labelledby="nav-Operaciones-tab">
+							{% endif %}
+							
+
+									<h1 class="text-center title-2">Tipo de Operación</h1>
+									<hr>
+									<br>
+									<div class="row form-group">
+										<div class="col-md-2">
+											<label for="">Carga Completa<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i></label>
+												
+											{{ OperacionInfo.Carga_Completa }}
+											
+										</div>
+										<div class="col-md-2">
+											<label for="">Carga Parcial<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i> &nbsp;&nbsp;&nbsp;&nbsp;</label>
+											<br>
+											{{ OperacionInfo.Carga_Parcial}}
+										</div>
+										<div class="col-md-2">
+											<label for="">Carga Contenedores<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i></label>
+
+											{{ OperacionInfo.Carga_Contenedores }}
+										</div>
+										<div class="col-md-2">
+											<label for="">Carga Mixta<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i> &nbsp;&nbsp;&nbsp;&nbsp;</label>
+
+											{{ OperacionInfo.Mixto }}
+										</div>
+										<div class="col-md-2">
+											<label for="">Paqueteria<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</label>
+											{{ OperacionInfo.Paqueteria }}
+										</div>
+										<div class="col-md-2">
+											<label for="">Otras<i tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="hola" class="fas fa-question-circle"></i> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</label>
+											{{OperacionInfo.Otro}}
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col-md-12" align="center">
+											<h3>Carga Total</h3>
+											<input type="text" id="Total" value="0" style="text-align: center;" disabled="true" readonly>
+										</div>
+									</div>
+									<br>
+									
+									
+							        <div align="right">
+											<button type="button" id="Siguiente2" class="btn btn-primary">Siguiente</button>
+									</div>
+							</div>
+							{% if nav == 3 %}
+							<div class="tab-pane fade show active" id="nav-Equipo" role="tabpanel" aria-labelledby="nav-Equipo-tab">
+							{% else %}
+							<div class="tab-pane fade show" id="nav-Equipo" role="tabpanel" aria-labelledby="nav-Equipo-tab">
+							{% endif %}
+								<div class="row">
+										<div class="col-md-12" align="center">
+											<h1 class="text-center title-2">Tipo de Equipo</h1>
+											<p>Seleccione el tipo de equipo que presentan sus vehiculos</p>
+										</div>
+									</div>
+									<hr>
+									<br>
+
+									<!--  -->
+									<div class="row form-group">
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Pl">
+											  <span class="checkmark"></span>
+											  Plano
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Es">
+											  <span class="checkmark"></span>
+											  Estanque
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Gr">
+											  <span class="checkmark"></span>
+											  Granel
+											</label>
+										</div>
+										
+									</div>
+									<br>
+									
+
+									<div class="row form-group">
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Mi">
+											  <span class="checkmark"></span>
+											  Mixer
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Ot">
+											  <span class="checkmark"></span>
+											  Otros
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Tr">
+											  <span class="checkmark"></span>
+											  Transporte de Vehículos
+											</label>
+										</div>
+									</div>
+									<br>
+									<div class="row form-group">
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Co" value="off">
+											  <span class="checkmark"></span>
+											  Contenedor o cortina
+											</label>
+										</div>
+
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Re">
+											  <span class="checkmark"></span>
+											  Refrigerador
+											</label>
+										</div>
+
+									</div>
+									<div align="right">
+											<button type="button" id="Siguiente3" class="btn btn-primary">Siguiente</button>
+									</div>
+							</div>
+							
+							{% if nav == 4 %}
+							<div class="tab-pane fade show active" id="nav-Industria" role="tabpanel" aria-labelledby="nav-Industria-tab">
+							{% else %}
+							<div class="tab-pane fade show" id="nav-Industria" role="tabpanel" aria-labelledby="nav-Industria-tab">
+							{% endif %}
+								<div class="row">
+										<div class="col-md-12" align="center">
+											<h1 class="text-center title-2">Tipo de Industria</h1>
+											<p>Seleccione el tipo de industria que presenta su flota</p>
+										</div>
+									</div>
+									<hr>
+									<br>
+
+									<!--  -->
+									<div class="row form-group">
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Agr">
+											  <span class="checkmark"></span>
+											  Agricultura
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Com">
+											  <span class="checkmark"></span>
+											  Comercio
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Min">
+											  <span class="checkmark"></span>
+											  Mineria
+											</label>
+										</div>
+										
+									</div>
+									<br>
+									
+
+									<div class="row form-group">
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Ali">
+											  <span class="checkmark"></span>
+											  Alimentacion
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Con">
+											  <span class="checkmark"></span>
+											  Construccion
+											</label>
+										</div>
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Mad">
+											  <span class="checkmark"></span>
+											  Madera
+											</label>
+										</div>
+									</div>
+									<br>
+									<div class="row form-group">
+										<div class="col-md-12 col-sm-12 col-12 col-lg-4" align="">
+											<label class="container">
+											  <input type="checkbox" name="Otr" value="off">
+											  <span class="checkmark"></span>
+											  Otros
+											</label>
+										</div>
+
+									</div>
+									<div align="right">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+									</div>
+							</div>
+						</div>
+					</div>
+				</form>
+						</div>
+					</div>	
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="OperacionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">  
+	<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<h3 style="color:red;padding-top: 50px;padding-bottom: 50px;">Sobrepasa los 100%</h3>
+		<div class="modal-footer">
+		    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+$(document).ready(function() {
+	
+
+	{% for i in check %}
+		$("input[name={{i}}]").prop('checked', true);
+	{% endfor %}
+	$("#Carga_Completa").on('change', function(event) {
+		var tot = parseInt($("#Carga_Completa").val()) + parseInt($("#Carga_Contenedores").val()) + parseInt($("#Mixto").val()) + parseInt($("#Carga_Parcial").val()) + parseInt($("#Paqueteria").val()) + parseInt($("#Otro").val())
+		if(tot > 100){	
+			$(this).val(0);
+			$("#OperacionModal").modal();
+		}else{
+			$("#Total").val(tot);
+		}
+	});
+	$("#Carga_Contenedores").on('change', function(event) {
+		var tot = parseInt($("#Carga_Completa").val()) + parseInt($("#Carga_Contenedores").val()) + parseInt($("#Mixto").val()) + parseInt($("#Carga_Parcial").val()) + parseInt($("#Paqueteria").val()) + parseInt($("#Otro").val())
+		if(tot > 100){	
+			$(this).val(0);
+			$("#OperacionModal").modal();
+		}else{
+			$("#Total").val(tot);
+		}
+	});
+	$("#Mixto").on('change', function(event) {
+		var tot = parseInt($("#Carga_Completa").val()) + parseInt($("#Carga_Contenedores").val()) + parseInt($("#Mixto").val()) + parseInt($("#Carga_Parcial").val()) + parseInt($("#Paqueteria").val()) + parseInt($("#Otro").val())
+		if(tot > 100){	
+			$(this).val(0);
+			$("#OperacionModal").modal();
+		}else{
+			$("#Total").val(tot);
+		}
+	});
+	$("#Carga_Parcial").on('change', function(event) {
+		var tot = parseInt($("#Carga_Completa").val()) + parseInt($("#Carga_Contenedores").val()) + parseInt($("#Mixto").val()) + parseInt($("#Carga_Parcial").val()) + parseInt($("#Paqueteria").val()) + parseInt($("#Otro").val())
+		if(tot > 100){	
+			$(this).val(0);
+			$("#OperacionModal").modal();
+		}else{
+			$("#Total").val(tot);
+		}
+	});
+	$("#Paqueteria").on('change', function(event) {
+		var tot = parseInt($("#Carga_Completa").val()) + parseInt($("#Carga_Contenedores").val()) + parseInt($("#Mixto").val()) + parseInt($("#Carga_Parcial").val()) + parseInt($("#Paqueteria").val()) + parseInt($("#Otro").val())
+		if(tot > 100){	
+			$(this).val(0);
+			$("#OperacionModal").modal();
+		}else{
+			$("#Total").val(tot);
+		}
+	});
+	$("#Otro").on('change', function(event) {
+		var tot = parseInt($("#Carga_Completa").val()) + parseInt($("#Carga_Contenedores").val()) + parseInt($("#Mixto").val()) + parseInt($("#Carga_Parcial").val()) + parseInt($("#Paqueteria").val()) + parseInt($("#Otro").val())
+		if(tot > 100){	
+			$(this).val(0);
+			$("#OperacionModal").modal();
+		}else{
+			$("#Total").val(tot);
+		}
+	});
+	$(function () {
+	  $('[data-toggle="popover"]').popover()
+	})
+	$("#siguiente").on('click', function() {
+		$("#nav-Operaciones-tab").tab("show");
+	});
+	$("#Siguiente2").on('click', function() {
+		$("#nav-Equipo-tab").tab("show");
+	});
+	$("#Siguiente3").on('click', function() {
+		$("#nav-Industria-tab").tab("show");
+	});
+	$("#Total").val(parseInt("{{tot}}"));
+
+	var cont = -1
+	{% for i in region %}
+	cont ++;
+	{% endfor %}
+	if (cont > 0){
+		$("#btn_region_del").show();
+	}
+	var clone = $("#Region2").clone();
+		$("#btn_region").on('click', function(event) {
+			cont ++;
+			var clone = $("#Region2").clone();
+			$("#Region").prepend(clone);
+			$("#btn_region_del").show();
+
+		});
+		$("#btn_region_del").on('click', function(event) {
+			if(cont != 0){
+				cont --;
+			}
+			$("#Region2").remove();
+			if(cont == 0){
+				$("#btn_region_del").hide();
+			}
+
+		});
+});
+</script>
+
+{% endblock JavaScript %}

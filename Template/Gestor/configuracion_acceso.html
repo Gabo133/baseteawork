@@ -1,0 +1,264 @@
+{% extends "Partials/Gestor/_Base.html" %}
+{% load static %}
+{% block Title %}
+Inicio
+{% endblock Title %}
+{% block Style %}
+<style>
+	.btn-green {
+		background-color: green;
+		border-color: white;
+		color:white;
+	}
+	.btn-red {
+		background-color: red;
+		border-color: white;
+		color:white;
+	}
+	.i-red {
+		color:red;
+		
+	}
+	.i-green{
+		color:green;
+	}
+</style>
+{% endblock Style %}
+{% block Content %}
+
+
+<div class="section__content section__content--p30">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header" style="text-align: center;">
+						<div class="row">
+							<div class="col-md-9">
+								<h2>Empresas</h2>
+							</div>
+							<div class="col-md-2">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#fecha_todo">Cambiar Fecha a Todos</button>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive table--no-card m-b-30">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Usuario</th>
+										<th>Completado</th>
+										<th>Plazo de Inscripción</th>
+										<th>Acción</th>
+										<th>Estatus</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in contacts %}
+									<tr >
+										<td>{{i.0.Usuario.username}}</td>
+										{% if i.0.Estado %}
+											<td ><i id="i{{i.0.pk}}" class="fas fa-check-circle i-green"></i></td>
+										{% else %}
+											<td><i id="i{{i.0.pk}}" class="fas fa-times i-red"></i></td>
+										{% endif %}
+										<td>{{i.1.Inicio_Dia}}/{{i.1.Inicio_Mes}} - {{i.1.Fin_Dia}}/{{i.1.Fin_Mes}}</td>
+										<td><button id="in{{i.0.pk}}" class="btn btn-success" data-toggle="modal" data-target="#fecha_todo{{i.1.pk}}">Cambiar Fecha</button></td>
+										<td>
+											{% if i.0.Estado == True %}
+												<button class="btn btn-red" value="des" id="hab{{i.0.pk}}">Deshabilitado</button>
+											{% else %}
+												<button class="btn btn-green" value="hab" id="hab{{i.0.pk}}"> Habilitado</button>
+											{% endif %}
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+					      <ul class="pagination">
+					        {% if contacts.has_previous %}
+					        <li class="page-item">
+					          <a class="page-link" href="?page={{ contacts.previous_page_number }}{{searchFilter}}">Anterior</a>
+					        </li>
+					        {% else %}
+					        <li class="page-item disabled">
+					          <a class="page-link">Anterior</a>
+					        </li>
+					        {% endif %} {% if contacts.number|add:'-4' > 1 %}
+					        <li><a href="?page={{ contacts.number|add:'-5' }}{{searchFilter}}">&hellip;</a></li>
+					        {% endif %} {% for i in contacts.paginator.page_range %} {% if contacts.number == i %}
+					        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+					        {% elif i > contacts.number|add:'-5' and i < contacts.number|add:'5' %} <li><a href="?page={{ i }}{{searchFilter}}">{{i}}</a></li>
+					          {% endif %} {% endfor %} {% if contacts.paginator.num_pages > contacts.number|add:'4' %}
+					          <li><a href="?page={{ contacts.number|add:'5' }}{{searchFilter}}">&hellip;</a></li>
+					          {% endif %} {% if contacts.has_next %}
+					          <li class="page-item">
+					            <a class="page-link" href="?page={{ contacts.next_page_number }}{{searchFilter}}">Siguiente</a>
+					          </li>
+					          {% else %}
+					          <li class="page-item disabled">
+					            <a class="page-link">Siguiente</a>
+					          </li>
+					          {% endif %}
+					      </ul>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% for i in contacts %}
+<div class="modal fade bd-example-modal-lg" id="fecha_todo{{i.1.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Cambiar Fecha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form action="{% url 'Cambiar_Fecha' i.1.pk %}" class="form-horizontal" method="POST" >
+      		<input type="text" id="id_action" name="action" value="total" class="hidden" hidden>
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-1">
+					<h4>Desde:</h4>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+		                <div class='input-group date' id='datetimepicker1'>
+		                    <input type='date' name="desde" class="form-control" />
+		                </div>
+		            </div>
+				</div>
+				<div class="col-md-1">
+					<h4>Hasta:</h4>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+		                <div class='input-group date' id='datetimepicker2'>
+		                    <input type='date' name="hasta" class="form-control" />
+		                </div>
+		            </div>
+				</div>
+			</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="modal fade bd-example-modal-lg" id="fecha_todo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <h5 class="modal-title " onclick="">Cambiar Fecha</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form action="{% url 'Configuracion' %}" class="form-horizontal" method="POST" >
+      		<input type="text" id="id_action" name="action" value="total" class="hidden" hidden>
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-1">
+					<h4>Desde:</h4>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+		                <div class='input-group date' id='datetimepicker1'>
+		                    <input type='date' name="desde" class="form-control" />
+		                </div>
+		            </div>
+				</div>
+				<div class="col-md-1">
+					<h4>Hasta:</h4>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+		                <div class='input-group date' id='datetimepicker2'>
+		                    <input type='date' name="hasta" class="form-control" />
+		                </div>
+		            </div>
+				</div>
+			</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		      </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock Content %}
+{% block JavaScript %}
+<script>
+	$(document).ready(function(){
+	function getCookie(name){
+      var cookieValue = null;
+      if (document.cookie && document.cookie != ''){
+          var cookies = document.cookie.split(';');
+          for(var i = 0; i < cookies.length; i++){
+              var cookie = jQuery.trim(cookies[i]);
+
+              if(cookie.substring(0,name.length + 1) == (name + '=')){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue
+    }
+	{% for i in contacts %}
+    $("#hab{{i.0.pk}}").on('click', function(event) {
+    	$.ajax({
+          url:'{% url "Cambiar_Status" i.0.pk %}',
+          type: "POST",
+          data: {
+            csrfmiddlewaretoken: getCookie('csrftoken'),
+          },
+          success: function() {
+		    if($("#hab{{i.0.pk}}").val() == "des"){
+		    	$("#hab{{i.0.pk}}").val("hab");
+		    	$("#hab{{i.0.pk}}").removeClass('btn-red');
+  				$("#hab{{i.0.pk}}").addClass('btn-green');
+		    	$("#hab{{i.0.pk}}").text("Habilitado");
+		    	$("#i{{i.0.pk}}").removeClass('fa-check-circle');
+		    	$("#i{{i.0.pk}}").removeClass('i-green');
+		    	$("#i{{i.0.pk}}").addClass('fa-times');
+		    	$("#i{{i.0.pk}}").addClass('i-red');
+		    }else{
+		    	$("#hab{{i.0.pk}}").val("des");
+		    	$("#hab{{i.0.pk}}").removeClass('btn-green');
+  				$("#hab{{i.0.pk}}").addClass('btn-red');
+		    	$("#hab{{i.0.pk}}").text("Deshabilitado");
+		    	$("#i{{i.0.pk}}").removeClass('fa-times');
+		    	$("#i{{i.0.pk}}").removeClass('i-red');
+		    	$("#i{{i.0.pk}}").addClass('fa-check-circle');
+		    	$("#i{{i.0.pk}}").addClass('i-green');
+
+		    }
+
+		}                                          
+        });
+    });
+    {% endfor %}
+});
+</script>
+{% endblock JavaScript %}
